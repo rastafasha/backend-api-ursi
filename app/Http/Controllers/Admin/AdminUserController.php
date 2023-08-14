@@ -166,15 +166,8 @@ class AdminUserController extends Controller
     }
 
     public function search(Request $request){
-        if ($request==='users') {
-            return Project::where('users', 'like', '%username%')->get();
-        }
 
-        // if ($request==='rank') {
-        //     return Project::where('rank', 'like', '%rank%')->get();
-        // }
+        return User::search($request->buscar);
 
-        //Single value search
-        //return Project::where('rank', 'like', '%' .$request. '%')->get();
     }
 }

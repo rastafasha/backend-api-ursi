@@ -83,6 +83,29 @@ class CursoController extends Controller
             ], 200);
     }
 
+    public function activos()
+    {
+        $cursosActivos = Curso::select([
+            "id",
+            'name',
+            'description',
+        'isFeatured',
+        'status',
+        'adicional',
+        'slug',
+        
+        ])
+            ->where('status', $status="APPROVED")
+            ->orderBy('id', 'desc')
+            ->get();
+
+            return response()->json([
+                'code' => 200,
+                'status' => 'Listar cursos destacados',
+                'cursosActivos' => $cursosActivos,
+            ], 200);
+    }
+
     public function cursoShowSlug($slug)
     {
         // $post = Post::where('slug', $slug)->first();
@@ -313,4 +336,10 @@ class CursoController extends Controller
                  'cursos' => $cursos,
              ], 200);
      }
+
+     public function search(Request $request){
+
+        return Curso::search($request->buscar);
+
+    }
 }

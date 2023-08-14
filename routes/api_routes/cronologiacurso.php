@@ -25,3 +25,6 @@ Route::post('/cronologiacurso/upload', [CronologiacursoController::class, 'uploa
 
 Route::delete('/cronologiacurso/delete-foto/{id}', [CronologiacursoController::class, 'deleteFotoCronologiacurso'])
     ->name('cronologiacurso.deleteFotoCronologiacurso');
+
+Route::get('/cronologiacurso/search/', [CronologiacursoController::class, 'search'])
+    ->name('cronologiacurso.search');

@@ -203,4 +203,10 @@ class CronologiacursoController extends Controller
              ]
          ]);
      }
+
+     public function search(Request $request){
+
+        return Cronologiacurso::search($request->buscar);
+
+    }
 }

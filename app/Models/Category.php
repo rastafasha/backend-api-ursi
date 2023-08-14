@@ -30,4 +30,17 @@ class Category extends Model
         return $this->hasMany(Post::class);
     }
 
+     /*
+    |--------------------------------------------------------------------------
+    | search
+    |--------------------------------------------------------------------------
+    */
+    public static function search($query = ''){
+        if(!$query){
+            return self::all();
+        }
+        return self::where('name', 'like', "%$query%")
+        ->get();
+    }
+
 }

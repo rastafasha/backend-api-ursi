@@ -129,4 +129,15 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(Profile::class);
     }
+
+    public static function search($query = ''){
+        if(!$query){
+            return self::all();
+        }
+        return self::where('username', 'like', "%$query%")
+        ->orWhere('email', 'like', "%$query%")
+        ->orWhere('role', 'like', "%$query%")
+        ->get();
+    }
+
 }

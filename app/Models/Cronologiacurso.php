@@ -25,4 +25,21 @@ class Cronologiacurso extends Model
         'costo',
         'image',
     ];
+     /*
+    |--------------------------------------------------------------------------
+    | search
+    |--------------------------------------------------------------------------
+    */
+    public static function search($query = ''){
+        if(!$query){
+            return self::all();
+        }
+        return self::where('title', 'like', "%$query%")
+        ->orWhere('description', 'like', "%$query%")
+        ->orWhere('fecha', 'like', "%$query%")
+        ->orWhere('modo', 'like', "%$query%")
+        ->orWhere('costo', 'like', "%$query%")
+        ->get();
+    }
+
 }

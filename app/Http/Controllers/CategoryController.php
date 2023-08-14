@@ -120,4 +120,8 @@ class CategoryController extends Controller
          return response()->json($data, $data['code']);
     }
 
+    public function search(Request $request){
+        return Category::search($request->buscar);
+    }
+
 }

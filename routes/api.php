@@ -178,8 +178,11 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::get('/banners', [BannerController::class, 'index'])
         ->name('banner.index');
 
-    Route::get('/cursos', [CursoController::class, 'index'])
-        ->name('curso.index');
+    // Route::get('/cursos', [CursoController::class, 'index'])
+    //     ->name('curso.index');
+
+    Route::get('/cursos/activos', [CursoController::class, 'activos'])
+        ->name('curso.activos');
 
     Route::get('/curso/show/{curso}', [CursoController::class, 'cursoShow'])
         ->name('curso.show');

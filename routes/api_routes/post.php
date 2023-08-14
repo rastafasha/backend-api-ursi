@@ -44,3 +44,6 @@ Route::post('/post/upload', [PostController::class, 'upload'])
 
 Route::delete('/post/delete-foto/{id}', [PostController::class, 'deleteFotoPost'])
     ->name('post.deleteFotoPost');
+
+Route::get('/post/search/', [PostController::class, 'search'])
+    ->name('post.search');

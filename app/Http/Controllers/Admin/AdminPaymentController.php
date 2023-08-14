@@ -273,5 +273,11 @@ class AdminPaymentController extends Controller
          ]);
      }
 
+     public function search(Request $request){
+
+        return Payment::search($request->buscar);
+
+    }
+
 
 }

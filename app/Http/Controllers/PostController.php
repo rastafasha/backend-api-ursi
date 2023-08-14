@@ -94,41 +94,17 @@ class PostController extends Controller
         ], 200);
     }
 
-
-
-
-    public function postByCategory($post)
+    public function postByCategory($category)
     {
+        // $this->authorize('index', User::class);
 
-        // $posts = Post::with('categories')->get();
-
-
-
-        // $post = Post::with([
-        //     'category'=>function($query){
-        //         return $query->select('name');
-        //     }
-        // ])
-        //         ->get();
-
-        $posts = Post::select([
-            "id", "title", "description", "category_id","created_at"
-        ])
-            ->with([
-                "categories:name"
-                ])
-             ->get([
-                    'categories.*', 'categories.name',
-                ]);
+        $posts = Post::with('categories')->where('category_id', $category)->get();
             return response()->json([
                 'code' => 200,
                 'status' => 'Listar Post by Category',
                 'posts' => $posts,
             ], 200);
     }
-
-
-
 
 
     public function postShowSlug($slug)
@@ -344,16 +320,9 @@ class PostController extends Controller
      }
 
 
-    public function search(Request $request){
-        // Get the search value from the request
-        $search = $request->input('search');
+     public function search(Request $request){
 
-        // Search in the title and body columns from the posts table
-        $posts = Post::query()
-            ->where('title', 'LIKE', "%{$search}%")
-            ->get();
+        return Post::search($request->buscar);
 
-        // Return the search view with the resluts compacted
-        // return view('search', compact('plans'));
     }
 }

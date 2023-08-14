@@ -29,3 +29,10 @@ Route::post('/banner/upload', [BannerController::class, 'upload'])
 
 Route::delete('/banner/delete-foto/{id}', [BannerController::class, 'deleteFotoBanner'])
     ->name('banner.deleteFotoBanner');
+
+
+Route::post('/banner/upload/movil', [BannerController::class, 'uploadMovil'])
+    ->name('banner.upload');
+
+Route::delete('/banner/delete-foto/movil/{id}', [BannerController::class, 'deleteFotoBannerMovil'])
+    ->name('banner.deleteFotoBanner');

@@ -22,3 +22,6 @@ Route::put('/category/update/{category}', [CategoryController::class, 'categoryU
 
 Route::delete('/category/destroy/{category}', [CategoryController::class, 'destroy'])
     ->name('category.destroy');
+
+    Route::get('/category/search', [CategoryController::class, 'search'])
+    ->name('category.search');

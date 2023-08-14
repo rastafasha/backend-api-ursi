@@ -10,17 +10,18 @@ use App\Models\User;
 class ChangeForgotPasswordControllerController extends Controller
 {
     /**
-     * Reques data 
+     * Reques data
      *
      * @param Request $request
      * @return void
      */
     public function changeForgotPassword(Request $request)
     {
-        return $this->updatePasswordRow($request)->count() > 0 ? 
+        return $this->updatePasswordRow($request)->count() > 0 ?
         $this->resetPassword($request) : $this->tokenNotFoundError();
+
     }
-    
+
    /**
     * Update passwor en table
     *
@@ -31,10 +32,11 @@ class ChangeForgotPasswordControllerController extends Controller
     {
         return DB::table('password_resets')->where([
             'email' => $request->email,
-            'token' => $request->token,
+            'token' => $request->resetToken,
+            // 'token' => $request->token,
         ]);
     }
-    
+
     /**
      * token no fount
      *
@@ -47,7 +49,7 @@ class ChangeForgotPasswordControllerController extends Controller
             'message' => "Su correo electrónico o token es incorrecto",
         ], 422);
     }
-    
+
     /**
      * Confirm password change
      *
@@ -56,15 +58,15 @@ class ChangeForgotPasswordControllerController extends Controller
      */
     private function resetPassword($request)
     {
-        
+
         $userData = User::whereEmail($request->email)->first();
-        
+
         $userData->update([
             'password' => bcrypt($request->password)
         ]);
 
         $this->updatePasswordRow($request)->delete();
-        
+
         return response()->json([
             'code' => 200,
             'message' => " La contraseña ha sido cambiada con éxito",

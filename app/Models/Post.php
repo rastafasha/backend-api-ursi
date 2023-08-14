@@ -56,4 +56,20 @@ class Post extends Model
     }
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | search
+    |--------------------------------------------------------------------------
+    */
+
+    public static function search($query = ''){
+        if(!$query){
+            return self::all();
+        }
+        return self::where('title', 'like', "%$query%")
+        ->orWhere('description', 'like', "%$query%")
+        ->get();
+    }
+
+
 }

@@ -21,14 +21,14 @@ class PasswordResetController extends Controller
      */
     public function resetPassword(Request $request)
     {
-        
+
         if (!$this->validateEmail($request->email)) {
             return response()->json([
                 'code' => 404,
                 'message' => 'El correo no existe o tiene algún error, verifica por favor....'
             ], 404);
         } else {
-            
+
             $this->sendMail($request->email);
 
             return response()->json([
@@ -44,10 +44,46 @@ class PasswordResetController extends Controller
      * @param [type] $email
      * @return void
      */
-    public function sendMail($email)
+    // public function sendMail($email)
+    // {
+    //     $token = $this->generateToken($email);
+    //     Mail::to($email)->send(new PasswordResetMail($token));
+    // }
+
+    public function sendMail(Request $request)
     {
-        $token = $this->generateToken($email);
+
+
+        if($this->validateEmail($request->email)){
+            return $this->failedResponse();
+        }
+
+        $this->send($request->email);
+        return $this->successResponse();
+    }
+
+    public function send($email)
+    {
+        $token = $this->createToken($email);
         Mail::to($email)->send(new PasswordResetMail($token));
+    }
+
+
+
+     public function failedResponse()
+    {
+
+        return response()->json([
+            'error'=>'Email no existe'
+        ], Response::HTTP_NOT_FOUND);
+    }
+
+    public function successResponse()
+    {
+
+        return response()->json([
+            'data'=>'Reset email is send '
+        ], Response::HTTP_OK);
     }
 
     /**
@@ -61,22 +97,44 @@ class PasswordResetController extends Controller
         return !!User::where('email', $email)->first();
     }
 
+    public function createToken($email){
+        $oldToken = DB::table('password_resets')->where('email', $email)->first();
+        if($oldToken){
+            return $oldToken;
+        }
+
+        $token = str_random(80);
+        $this->saveToken($token, $email);
+
+        return $token;
+    }
+
+    public function saveToken($token, $email){
+        DB::table('password_resets')->insert(
+            [
+                'email' => $email,
+                'token' => $token,
+                'created_at' => Carbon::now()
+            ]
+            );
+    }
+
     /**
      * Generate token for email
      *
      * @param [type] $email
      * @return void
      */
-    public function generateToken($email)
-    {
-        $isOtherToken = DB::table('password_resets')->where('email', $email)->first();
-        if ($isOtherToken) {
-            return $isOtherToken->token;
-        }
-        $token = Str::random(80);;
-        $this->storeToken($token, $email);
-        return $token;
-    }
+    // public function generateToken($email)
+    // {
+    //     $isOtherToken = DB::table('password_resets')->where('email', $email)->first();
+    //     if ($isOtherToken) {
+    //         return $isOtherToken->token;
+    //     }
+    //     $token = Str::random(80);;
+    //     $this->storeToken($token, $email);
+    //     return $token;
+    // }
 
     /**
      * Save data in table
@@ -85,12 +143,12 @@ class PasswordResetController extends Controller
      * @param [type] $email
      * @return void
      */
-    public function storeToken($token, $email)
-    {
-        DB::table('password_resets')->insert([
-            'email' => $email,
-            'token' => $token,
-            'created_at' => Carbon::now()
-        ]);
-    }
+    // public function storeToken($token, $email)
+    // {
+    //     DB::table('password_resets')->insert([
+    //         'email' => $email,
+    //         'token' => $token,
+    //         'created_at' => Carbon::now()
+    //     ]);
+    // }
 }

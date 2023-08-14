@@ -8,6 +8,9 @@ use App\Http\Controllers\CursoController;
 Route::get('/cursos', [CursoController::class, 'index'])
     ->name('curso.index');
 
+    Route::get('/cursos/activos', [CursoController::class, 'activos'])
+    ->name('curso.activos');
+
 Route::post('/curso/store', [CursoController::class, 'cursoStore'])
     ->name('curso.store');
 
@@ -38,3 +41,6 @@ Route::post('/curso/upload', [CursoController::class, 'upload'])
 
 Route::delete('/curso/delete-foto/{id}', [CursoController::class, 'deleteFotoCurso'])
     ->name('curso.deleteFotoCurso');
+
+Route::get('/curso/search/', [CursoController::class, 'search'])
+    ->name('curso.search');

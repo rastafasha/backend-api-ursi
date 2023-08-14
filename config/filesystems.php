@@ -55,6 +55,14 @@ return [
             'visibility' => 'public',
 
         ],
+
+        'movil' => [
+            'driver' => 'local',
+            'root' => storage_path('app/banners/movil/'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+
+        ],
         'cursos' => [
             'driver' => 'local',
             'root' => storage_path('app/cursos/'),

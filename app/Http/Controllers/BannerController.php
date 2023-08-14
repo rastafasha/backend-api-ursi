@@ -52,7 +52,7 @@ class BannerController extends Controller
 
         if (!$banner) {
             return response()->json([
-                'message' => 'Post not found.'
+                'message' => 'banner not found.'
             ], 404);
         }
 
@@ -204,7 +204,79 @@ class BannerController extends Controller
          $banner->image = '';
          $banner->save();
          return response()->json([
-             'data' => $post,
+             'data' => $banner,
+             'msg' => [
+                 'summary' => 'Archivo eliminado',
+                 'detail' => '',
+                 'code' => ''
+             ]
+         ]);
+     }
+
+     //movil
+     public function uploadMovil(Request $request)
+     {
+         // recoger la imagen de la peticion
+         $imagemovil = $request->file('file0');
+         // validar la imagen
+         $validate = \Validator::make($request->all(),[
+             'file0' => 'required|image|mimes:jpg,jpeg,png,gif'
+         ]);
+         //guardar la imagen en un disco
+         if(!$imagemovil || $validate->fails()){
+             $data = [
+                 'code' => 400,
+                 'status' => 'error',
+                 'message' => 'Error al subir la imagen'
+             ];
+         }else{
+            $extension = $imagemovil->getClientOriginalExtension();
+            $image_name = $imagemovil->getClientOriginalName();
+            $pathFileName = trim(pathinfo($image_name, PATHINFO_FILENAME));
+            $secureMaxName = substr(Str::slug($image_name), 0, 90);
+            $image_name = now().$secureMaxName.'.'.$extension;
+
+             \Storage::disk('movil')->put($image_name, \File::get($imagemovil));
+
+             $data = [
+                 'code' => 200,
+                 'status' => 'success',
+                 'image' => $image_name
+             ];
+
+         }
+
+         return response()->json($data, $data['code']);// devuelve un objeto json
+     }
+
+     public function getImageMovil($filename)
+     {
+
+         //comprobar si existe la imagen
+         $isset = \Storage::disk('movil')->exists($filename);
+         if ($isset) {
+             $file = \Storage::disk('movil')->get($filename);
+             return new Response($file, 200);
+         } else {
+             $data = array(
+                 'status' => 'error',
+                 'code' => 404,
+                 'mesaje' => 'Imagen no existe',
+             );
+
+             return response()->json($data, $data['code']);
+         }
+
+     }
+
+     public function deleteFotoBannerMOvil($id)
+     {
+         $banner = Banner::findOrFail($id);
+         \Storage::delete('movil' . $banner->imagemovil);
+         $banner->imagemovil = '';
+         $banner->save();
+         return response()->json([
+             'data' => $banner,
              'msg' => [
                  'summary' => 'Archivo eliminado',
                  'detail' => '',

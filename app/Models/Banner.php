@@ -23,6 +23,7 @@ class Banner extends Model
         'botonName',
         'image',
         'status',
+        'imagemovil'
     ];
 
 

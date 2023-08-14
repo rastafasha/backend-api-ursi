@@ -42,4 +42,20 @@ class Curso extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+     /*
+    |--------------------------------------------------------------------------
+    | search
+    |--------------------------------------------------------------------------
+    */
+
+    public static function search($query = ''){
+        if(!$query){
+            return self::all();
+        }
+        return self::where('name', 'like', "%$query%")
+        ->orWhere('price', 'like', "%$query%")
+        ->get();
+    }
+
+
 }

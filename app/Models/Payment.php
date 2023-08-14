@@ -73,4 +73,23 @@ class Payment extends Model
     {
         return $this->hasMany(Curso::class, 'curso_id');
     }
+
+
+     /*
+    |--------------------------------------------------------------------------
+    | search
+    |--------------------------------------------------------------------------
+    */
+    
+    public static function search($query = ''){
+        if(!$query){
+            return self::all();
+        }
+        return self::where('referencia', 'like', "%$query%")
+        ->orWhere('email', 'like', "%$query%")
+        ->orWhere('name', 'like', "%$query%")
+        ->orWhere('nombre', 'like', "%$query%")
+        ->orWhere('costo', 'like', "%$query%")
+        ->get();
+    }
 }

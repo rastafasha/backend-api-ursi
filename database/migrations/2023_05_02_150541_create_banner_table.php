@@ -20,6 +20,7 @@ class CreateBannerTable extends Migration
             $table->string('url');
             $table->string('target');
             $table->string('image')->nullable();
+            $table->string('imagemovil')->nullable();
             $table->boolean('gotBoton')->nullable();
             $table->string('botonName');
             $table->enum('status', [Banner::PUBLISHED, Banner::PENDING, Banner::REJECTED])->default(Banner::PENDING);
