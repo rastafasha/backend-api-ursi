@@ -75,7 +75,10 @@ class JoyaController extends Controller
     {
         $joya = Joyas::findOrfail($id);
         $joya->status = $request->status;
-        $joya->image = $request->image;
+        // $joya->image = $request->image;
+        if($request->image){
+            $joya->image = $request->image;
+        }
         $joya->update();
         return $joya;
     }

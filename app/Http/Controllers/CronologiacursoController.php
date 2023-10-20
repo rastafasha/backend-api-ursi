@@ -80,7 +80,10 @@ class CronologiacursoController extends Controller
         $cronologiacurso->proyecto = $request->proyecto;
         $cronologiacurso->duracion = $request->duracion;
         $cronologiacurso->costo = $request->costo;
-        $cronologiacurso->image = $request->image;
+        // $cronologiacurso->image = $request->image;
+        if($request->image){
+            $cronologiacurso->image = $request->image;
+        }
         $cronologiacurso->update();
         return $cronologiacurso;
     }

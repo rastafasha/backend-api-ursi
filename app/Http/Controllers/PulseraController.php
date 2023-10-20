@@ -78,7 +78,10 @@ class PulseraController extends Controller
         $pulsera->description = $request->description;
         $pulsera->price = $request->price;
         $pulsera->status = $request->status;
-        $pulsera->image = $request->image;
+        // $pulsera->image = $request->image;
+        if($request->image){
+            $pulsera->image = $request->image;
+        }
         $pulsera->update();
         return $pulsera;
     }

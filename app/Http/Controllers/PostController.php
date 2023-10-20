@@ -176,7 +176,10 @@ class PostController extends Controller
         $post->slug = $request->slug;
         $post->isFeatured = $request->isFeatured;
         $post->status = $request->status;
-        $post->image = $request->image;
+        // $post->image = $request->image;
+        if($request->image){
+            $post->image = $request->image;
+        }
         $post->update();
         return $post;
     }

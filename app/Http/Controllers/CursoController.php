@@ -149,7 +149,10 @@ class CursoController extends Controller
         $curso->modal = $request->modal;
         $curso->slug = $request->slug;
         $curso->isFeatured = $request->isFeatured;
-        $curso->image = $request->image;
+        // $curso->image = $request->image;
+        if($request->image){
+            $curso->image = $request->image;
+        }
         $curso->update();
         return $curso;
     }

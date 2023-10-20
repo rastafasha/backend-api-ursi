@@ -75,7 +75,10 @@ class ExpocafController extends Controller
     {
         $expocaf = Expocaf::findOrfail($id);
         $expocaf->status = $request->status;
-        $expocaf->image = $request->image;
+        // $expocaf->image = $request->image;
+        if($request->image){
+            $expocaf->image = $request->image;
+        }
         $expocaf->update();
         return $expocaf;
     }

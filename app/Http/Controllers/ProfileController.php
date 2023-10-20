@@ -89,7 +89,10 @@ class ProfileController extends Controller
         $profile->twitter = $request->twitter;
         $profile->linkedin = $request->linkedin;
         $profile->status = $request->status;
-        $profile->image = $request->image;
+        // $profile->image = $request->image;
+        if($request->image){
+            $profile->image = $request->image;
+        }
         $profile->update();
         return $profile;
     }

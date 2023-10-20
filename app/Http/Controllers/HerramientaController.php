@@ -78,6 +78,9 @@ class HerramientaController extends Controller
         $herramienta->description = $request->description;
         $herramienta->status = $request->status;
         $herramienta->image = $request->image;
+        if($request->image){
+            $herramienta->image = $request->image;
+        }
         $herramienta->update();
         return $herramienta;
     }

@@ -74,7 +74,10 @@ class GalleryschoolController extends Controller
     {
         $galleryschool = Galleryschool::findOrfail($id);
         $galleryschool->title = $request->title;
-        $galleryschool->image = $request->image;
+        // $galleryschool->image = $request->image;
+        if($request->image){
+            $galleryschool->image = $request->image;
+        }
         $galleryschool->update();
         return $galleryschool;
     }

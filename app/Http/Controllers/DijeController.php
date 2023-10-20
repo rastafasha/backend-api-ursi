@@ -79,7 +79,10 @@ class DijeController extends Controller
         $dije->description = $request->description;
         $dije->price = $request->price;
         $dije->status = $request->status;
-        $dije->image = $request->image;
+        // $dije->image = $request->image;
+        if($request->image){
+            $dije->image = $request->image;
+        }
         $dije->update();
         return $dije;
     }

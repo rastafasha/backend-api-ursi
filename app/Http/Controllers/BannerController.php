@@ -80,7 +80,14 @@ class BannerController extends Controller
         $banner->gotBoton = $request->gotBoton;
         $banner->botonName = $request->botonName;
         $banner->status = $request->status;
-        $banner->image = $request->image;
+        // $banner->image = $request->image;
+
+        if($request->image){
+            $arete->image = $request->image;
+        }
+        if($request->imagemovil){
+            $arete->image = $request->imagemovil;
+        }
         $banner->update();
         return $banner;
     }

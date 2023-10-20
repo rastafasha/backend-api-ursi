@@ -75,7 +75,10 @@ class PublicacionController extends Controller
     {
         $publicacion = Publicaciones::findOrfail($id);
         $publicacion->status = $request->status;
-        $publicacion->image = $request->image;
+        // $publicacion->image = $request->image;
+        if($request->image){
+            $publicacion->image = $request->image;
+        }
         $publicacion->update();
         return $publicacion;
     }

@@ -79,13 +79,8 @@ class AreteController extends Controller
         $arete->description = $request->description;
         $arete->price = $request->price;
         $arete->status = $request->status;
-        if(!empty($arete->image)){
-
-            //Actualizar el registro en concreto
-            $arete->update();
-
-        }else{
-           $arete->image = $request->image;
+        if($request->image){
+            $arete->image = $request->image;
         }
         $arete->update();
         return $arete;

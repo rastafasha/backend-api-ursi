@@ -99,12 +99,8 @@ class AnilloController extends Controller
         $anillo->description = $request->description;
         $anillo->price = $request->price;
         $anillo->status = $request->status;
-        if(!empty($anillo->image)){
-
-            $anillo->update();
-
-        }else{
-           $anillo->image = $request->image;
+        if($request->image){
+            $anillo->image = $request->image;
         }
         $anillo->update();
         return $anillo;

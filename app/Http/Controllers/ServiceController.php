@@ -82,7 +82,10 @@ class ServiceController extends Controller
         $service->videoUrl = $request->videoUrl;
         $service->service_id = $request->service_id;
         $service->status = $request->status;
-        $service->image = $request->image;
+        // $service->image = $request->image;
+        if($request->image){
+            $service->image = $request->image;
+        }
         $service->update();
         return $service;
     }
