@@ -114,7 +114,9 @@ class PostController extends Controller
         $post = Post::select([
             "id",
             'title',
-        'description',
+            'title_eng',
+            'description',
+            'description_eng',
         'category_id',
         'slug',
         'image',
@@ -172,7 +174,9 @@ class PostController extends Controller
         $post->user_id = $request->user_id;
         $post->category_id = $request->category_id;
         $post->title = $request->title;
+        $post->title_eng = $request->title_eng;
         $post->description = $request->description;
+        $post->description_eng = $request->description_eng;
         $post->slug = $request->slug;
         $post->isFeatured = $request->isFeatured;
         $post->status = $request->status;

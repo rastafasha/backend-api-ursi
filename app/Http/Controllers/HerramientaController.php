@@ -74,8 +74,11 @@ class HerramientaController extends Controller
     {
         $herramienta = Herramienta::findOrfail($id);
         $herramienta->title = $request->title;
+        $herramienta->title_eng = $request->title_eng;
         $herramienta->subtitle = $request->subtitle;
+        $herramienta->subtitle_eng = $request->subtitle_eng;
         $herramienta->description = $request->description;
+        $herramienta->description_eng = $request->description_eng;
         $herramienta->status = $request->status;
         $herramienta->image = $request->image;
         if($request->image){

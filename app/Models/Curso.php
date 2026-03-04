@@ -15,8 +15,11 @@ class Curso extends Model
     */
     protected $fillable = [
         'name',
+        'name_eng',
         'description',
+        'description_eng',
         'adicional',
+        'adicional_eng',
         'price',
         'modal',
         'slug',

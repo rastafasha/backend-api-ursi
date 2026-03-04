@@ -10,8 +10,11 @@ class Herramienta extends Model
     use HasFactory;
     protected $fillable = [
         'title',
+        'title_eng',
         'subtitle',
+        'subtitle_eng',
         'description',
+        'description_eng',
         'image',
         'status',
     ];

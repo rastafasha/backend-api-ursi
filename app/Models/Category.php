@@ -15,7 +15,8 @@ class Category extends Model
     */
     protected $fillable = [
 
-        'name'
+        'name',
+        'name_eng'
 
     ];
 

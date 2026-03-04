@@ -67,9 +67,12 @@ class CursoController extends Controller
         $cursos = Curso::select([
             "id",
             'name',
+            'name_eng',
             'description',
+            'description_eng',
         'isFeatured',
         'adicional',
+        'adicional_eng',
         'slug',
         ])
             ->where('isFeatured', $featured=true)
@@ -88,10 +91,13 @@ class CursoController extends Controller
         $cursosActivos = Curso::select([
             "id",
             'name',
+            'name_eng',
             'description',
+            'description_eng',
         'isFeatured',
         'status',
         'adicional',
+        'adicional_eng',
         'slug',
         
         ])
@@ -113,10 +119,13 @@ class CursoController extends Controller
         $curso = Curso::select([
             "id",
             'name',
+            'name_eng',
             'description',
+            'description_eng',
         'price',
         'isFeatured',
         'adicional',
+        'adicional_eng',
         'slug',
         ])
             ->where('slug', $slug)
@@ -141,8 +150,11 @@ class CursoController extends Controller
     {
         $curso = Curso::findOrfail($id);
         $curso->name = $request->name;
+        $curso->name_eng = $request->name_eng;
         $curso->description = $request->description;
+        $curso->description_eng = $request->description_eng;
         $curso->adicional = $request->adicional;
+        $curso->adicional_eng = $request->adicional_eng;
         $curso->price = $request->price;
         $curso->urlVideo = $request->urlVideo;
         $curso->status = $request->status;

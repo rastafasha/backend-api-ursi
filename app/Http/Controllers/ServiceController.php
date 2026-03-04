@@ -74,13 +74,14 @@ class ServiceController extends Controller
     {
         $service = Service::findOrfail($id);
         $service->title = $request->title;
+        $service->title_eng = $request->title_eng;
         $service->subtitle = $request->subtitle;
-        $service->slug = $request->slug;
+        $service->subtitle_eng = $request->subtitle_eng;
         $service->model = $request->model;
         $service->description = $request->description;
+        $service->description_eng = $request->description_eng;
         $service->price = $request->price;
         $service->videoUrl = $request->videoUrl;
-        $service->service_id = $request->service_id;
         $service->status = $request->status;
         // $service->image = $request->image;
         if($request->image){

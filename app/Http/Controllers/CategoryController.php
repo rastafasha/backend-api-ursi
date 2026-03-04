@@ -69,6 +69,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrfail($id);
         $category->name = $request->name;
+        $category->name_eng = $request->name_eng;
         $category->update();
         return $category;
     }
@@ -84,6 +85,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrfail($id);
         $category->name = $request->name;
+        $category->name_eng = $request->name_eng;
         $category->update();
         return $category;
     }
