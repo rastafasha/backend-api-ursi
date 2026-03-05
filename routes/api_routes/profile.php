@@ -14,6 +14,9 @@ Route::post('/profile/store', [ProfileController::class, 'profileStore'])
 Route::get('/profile/show/{profile}', [ProfileController::class, 'profileShow'])
     ->name('profile.show');
 
+    Route::get('/profile/user/{id}', [ProfileController::class, 'profileShowUser'])
+    ->name('profile.profileShowUser');
+
 Route::put('/profile/update/{profile}', [ProfileController::class, 'profileUpdate'])
     ->name('profile.update');
 

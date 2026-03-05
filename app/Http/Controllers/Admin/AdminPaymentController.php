@@ -100,6 +100,25 @@ class AdminPaymentController extends Controller
         ], 200);
     }
 
+    public function paymentShowUser($id)
+    {
+        // $this->authorize('paymentShow', Payment::class);
+
+        $payments = Payment::where('user_id', $id)->get();
+
+        if (!$payments) {
+            return response()->json([
+                'message' => 'Pago not found.'
+            ], 404);
+        }
+
+        return response()->json([
+            'code' => 200,
+            'status' => 'success',
+            'payments' => $payments,
+        ], 200);
+    }
+
     /**
      * Update the specified resource in storage.
      *

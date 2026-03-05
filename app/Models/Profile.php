@@ -65,5 +65,9 @@ class Profile extends Model
     {
         return $this->hasMany(Post::class, 'post_id');
     }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'payment_id');
+    }
 
 }

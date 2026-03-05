@@ -15,6 +15,9 @@ Route::post('/payment/store', [AdminPaymentController::class, 'paymentStore'])
 Route::get('/payment/show/{payment:id}', [AdminPaymentController::class, 'paymentShow'])
     ->name('payment.show');
 
+    Route::get('/payment/user/{user:id}', [AdminPaymentController::class, 'paymentShowUser'])
+    ->name('payment.paymentShowUser');
+
 Route::put('/payment/update/{id}', [AdminPaymentController::class, 'paymentUpdate'])
     ->name('payment.update');
 

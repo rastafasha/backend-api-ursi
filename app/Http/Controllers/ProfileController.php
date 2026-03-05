@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\Profile;
 use Illuminate\Http\Request;
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ProfileController extends Controller
@@ -18,15 +16,8 @@ class ProfileController extends Controller
     {
         // $this->authorize('index', User::class);
 
-        $profiles = Profile::select([
-            "id", "username", "email", "is_active", "role"
-        ])
-            ->withCount([
-                "payments",
-                "follows"
-            ])
-            ->orderBy('id', 'desc')
-            ->get();
+        $profiles = Profile::orderBy('created_at', 'DESC')
+        ->get();
 
             return response()->json([
                 'code' => 200,
@@ -50,6 +41,25 @@ class ProfileController extends Controller
     public function profileShow(Profile $profile)
     {
         // $this->authorize('userShow', User::class);
+
+        if (!$profile) {
+            return response()->json([
+                'message' => 'Profile not found.'
+            ], 404);
+        }
+
+        return response()->json([
+            'code' => 200,
+            'status' => 'success',
+            'profile' => $profile,
+        ], 200);
+    }
+
+    public function profileShowUser($id)
+    {
+        // $this->authorize('userShow', User::class);
+
+        $profile = Profile::where('user_id', $id)->first();
 
         if (!$profile) {
             return response()->json([
@@ -144,7 +154,7 @@ class ProfileController extends Controller
             "instagram" => request("instagram"),
             "twitter" => request("twitter"),
             "linkedin" => request("linkedin"),
-            "image" => $file,
+            "image" => request("image"),
             "email" => request("email"),
             "status" => request("status"),
         ];

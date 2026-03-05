@@ -159,11 +159,20 @@ Route::group(['middleware' => 'api'], function ($router) {
         return "Storage Link";
     });
 
+      Route::get('/migrate', function () {
+        Artisan::call('migrate');
+        return "Migrate";
+    });
 
     Route::get('/migrate-seed', function () {
         Artisan::call('migrate:refresh --seed');
         return "Migrate seed";
     });
+
+    Route::get('/route-clear', function () {
+    Artisan::call('route:clear');
+    return "Route cache cleared successfully.";
+});
 
     Route::post('file', [imageController::class, 'file'])->name('fileUpload');
     Route::post('file/class/uploader', [imageController::class, 'fileClassUploader'])->name('fileUploaderClass');
