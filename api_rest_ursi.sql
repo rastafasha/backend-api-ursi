@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 04-03-2026 a las 10:29:34
--- Versión del servidor: 10.6.24-MariaDB-cll-lve
--- Versión de PHP: 8.3.30
+-- Servidor: localhost:8889
+-- Tiempo de generación: 05-03-2026 a las 16:36:41
+-- Versión del servidor: 5.7.34
+-- Versión de PHP: 8.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,13 +29,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `anillos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `model` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `price` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT 'no-image.jpg',
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `model` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'no-image.jpg',
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -60,13 +60,13 @@ INSERT INTO `anillos` (`id`, `title`, `slug`, `model`, `description`, `price`, `
 
 CREATE TABLE `aretes` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `model` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `price` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `model` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -89,15 +89,15 @@ INSERT INTO `aretes` (`id`, `title`, `slug`, `model`, `description`, `price`, `i
 
 CREATE TABLE `banners` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  `target` varchar(255) NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `imagemovil` varchar(255) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `target` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `imagemovil` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `gotBoton` tinyint(1) DEFAULT NULL,
-  `botonName` varchar(255) DEFAULT NULL,
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `botonName` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -118,7 +118,8 @@ INSERT INTO `banners` (`id`, `title`, `description`, `url`, `target`, `image`, `
 
 CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -127,9 +128,9 @@ CREATE TABLE `categories` (
 -- Volcado de datos para la tabla `categories`
 --
 
-INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Proyecto de Clase', '2023-05-14 21:13:20', '2023-05-14 21:13:20'),
-(2, 'Tips y Publicidad', '2023-05-14 21:06:54', '2023-05-18 16:57:58');
+INSERT INTO `categories` (`id`, `name`, `name_eng`, `created_at`, `updated_at`) VALUES
+(1, 'Proyecto de Clase', 'Class Project', '2023-05-14 21:13:20', '2026-03-05 03:09:38'),
+(2, 'Tips y Publicidad', 'Tips and Advertising', '2023-05-14 21:06:54', '2026-03-05 03:10:05');
 
 -- --------------------------------------------------------
 
@@ -139,11 +140,11 @@ INSERT INTO `categories` (`id`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `contacts` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `subject` varchar(255) NOT NULL,
-  `comment` text NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `comment` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -156,16 +157,24 @@ CREATE TABLE `contacts` (
 
 CREATE TABLE `cronologiacursos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `modo` varchar(255) NOT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `fecha` varchar(255) DEFAULT NULL,
-  `hora` varchar(255) DEFAULT NULL,
-  `clases` varchar(255) DEFAULT NULL,
-  `proyecto` varchar(255) DEFAULT NULL,
-  `duracion` varchar(255) DEFAULT NULL,
-  `costo` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `modo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `modo_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `description_eng` text COLLATE utf8mb4_unicode_ci,
+  `fecha` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `fecha_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hora` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `hora_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `clases` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `clases_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `proyecto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `proyecto_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `duracion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `duracion_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `costo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -174,16 +183,16 @@ CREATE TABLE `cronologiacursos` (
 -- Volcado de datos para la tabla `cronologiacursos`
 --
 
-INSERT INTO `cronologiacursos` (`id`, `modo`, `title`, `description`, `fecha`, `hora`, `clases`, `proyecto`, `duracion`, `costo`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'Curso Online', 'Alambrismo Avanzado', '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">Trabajaremos otras técnicas, mas de tipo manual sin tanta intervención del alicate, entorchado de hilos, trenzados, amarres y mucha creatividad serán las constantes para la confección de estos proyectos.</span></p>', 'Lunes 27 de Marzo y 3 de Abril', '12 A 1 PM', '2 clases de 1:30 horas c/u', '1 proyecto', '3 horas', '90', '2023-05-14 15:06:57alambrismo-avanzadopng.png', '2023-05-14 19:06:59', '2023-05-14 19:06:59'),
-(2, 'Curso Online', 'Resina con Metal', '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">La Resina tiene muchos usos y formas de aplicación por lo que hemos dividido el curso en varios talleres que lo puedes tomarlos en el orden que desees según te interese.</span></p>', 'Lunes 13 y 20 de Abril', '2:30 PM A 4 PM', '2 clases de 1:30 horas c/u', '1 proyecto', '3 horas', '90', '2023-05-17 23:35:15resinaymetalljpg.jpg', '2023-05-18 03:35:18', '2023-05-18 03:35:18'),
-(3, 'Curso Online', 'Esmalte al Fuego', '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">Este taller de esmalte sobre metal al fuego esta diseñado para que puedas crear tus piezas de una manera simple usando incluso un soplete de cocina.</span></p>', 'Lunes 27 de Marzo y 3 de Abril', '2:30 PM A 4 PM', '1 clase', '1 proyecto', '3 horas', '50', '2023-05-17 23:38:41esmaltealfuegopng.png', '2023-05-18 03:38:44', '2023-05-18 03:38:44'),
-(4, 'Curso Online', 'Elaboración Molde de Silicona', '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">Es ideal para reproducir piezas, se usa para verter en ellos cera derretida para procesos de fundición o también resinas, tiene muchas utilidades, por ejemplo en el Metal clay se usan texturas en planchas hechas de silicona</span></p>', 'Lunes 10 y 17 de Abril', '12 PM A 1 PM', '2 clases de 1:30 horas c/u', '1 proyecto', '3 horas', '90', '2023-05-17 23:40:18moldesiliconapng.png', '2023-05-18 03:40:20', '2023-05-18 03:40:20'),
-(5, 'Curso Online', 'Baños Electrolíticos de Oro sobre Plata', '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">Se dará toda la información del tipo de maquina o regulador ideal según sean tus recubrimientos a realizar, trabajaremos en la preparación de la pieza a enchapar y todo el tema del anodo y catodo y el uso de la solución de oro.</span></p>', 'Lunes 10 de Abril', '2:30 PM A 4:30 PM', '1 clases de 2 horas c/u', '1 proyecto', '3 horas', '90', '2023-05-17 23:42:24electrolitospng.png', '2023-05-18 03:42:27', '2023-05-18 03:42:27'),
-(6, 'Curso Online', 'Curso Básico de Orfebrería', '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">Este es un paquete de 4 proyectos en un taller, esta ideal para quienes quieren una formación rápida e intensiva, trabajaremos 3 anillos y unos aretes que son los que estan en la foto, aprenderas desde las tecnicas mas basicas.</span></p>', '24 Abril a 1/8/15 de Mayo', '12 PM A 1:30 PM', '4 clases de 1:30 horas c/u', '1 proyecto', '3 horas', '180', '2023-05-17 23:45:25basicoorfebreriapng.png', '2023-05-18 03:45:27', '2023-05-18 03:45:27'),
-(7, 'Curso Online', 'Remaches', '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">En este taller aprenderás la forma más rápida y segura para unir materiales sin necesidad de soldaduras o pegamentos, solo utilizaras remache también conocido como \"Soldadura en frio\", formidable recurso a la hora de unir elementos que no se pueden soldar y seguro.</span></p>', 'Lunes 22 y 29 de Mayo', '12 PM A 1 PM', '2 clases de 1:30 horas c/u', '1 proyecto', '3 horas', '90', '2023-05-17 23:47:48remachespng.png', '2023-05-18 03:47:56', '2023-05-18 03:47:56'),
-(8, 'Curso Online', 'Cordón Tejido', '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">Este cordón resulta una fina solución cuando estamos realizando un dije y necesitamos una cadena para colgarlo o necesitamos una forma para completar una pulsera etc. es de muy fácil elaboración y es muy entretenido</span></p>', 'Lunes 22 de Mayo', '2:30 PM A 4:30 PM', '1 clase', '1 proyecto', '2 horas', '45', '2023-05-17 23:49:55cordontejidopng.png', '2023-05-18 03:49:59', '2023-05-18 03:49:59'),
-(9, 'Curso Online', 'Engaste de Piedra Facetada en Caja sobre Superficie Curva', '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">Técnica avanzada, el participante debe saber ya realizar una caja para engastar piedra y buen uso de la lima de media caña el objetivo es que la caja se adapte a la forma curva del anillo o también de un brazalete</span></p>', 'Lunes 5 y 12 de Junio', '12 PM A 1:30 PM', '2 clases de 1:30 horas c/u', '1 proyecto', '3 horas', '90', '2023-05-17 23:52:13engastepiedrapng.png', '2023-05-18 03:52:15', '2023-05-18 03:52:15');
+INSERT INTO `cronologiacursos` (`id`, `modo`, `modo_eng`, `title`, `title_eng`, `description`, `description_eng`, `fecha`, `fecha_eng`, `hora`, `hora_eng`, `clases`, `clases_eng`, `proyecto`, `proyecto_eng`, `duracion`, `duracion_eng`, `costo`, `image`, `created_at`, `updated_at`) VALUES
+(1, 'Curso Online', 'Online Course', 'Alambrismo Avanzado', 'Advanced Wire Wrapping', 'Trabajaremos otras técnicas, más de tipo manual sin tanta intervención del alicate, entorchado de hilos, trenzados, amarres y mucha creatividad serán las constantes para la confección de estos proyectos.', 'We will work on other techniques, more of a manual nature without as much plier intervention; wire wrapping, braiding, tying, and a lot of creativity will be the constants for the making of these projects.', 'Lunes 27 de Marzo y 3 de Abril', 'Monday March 27th and April 3th', '12 A 1 PM', '12 to 1 PM', '2 clases de 1:30 horas c/u', '2 classes of 1:30 hours e/o', '1 proyecto', '1 project', '3 horas', '3 hours', '90', '2023-05-14 15:06:57alambrismo-avanzadopng.png', '2023-05-14 19:06:59', '2026-03-05 19:37:53'),
+(2, 'Curso Online', 'Online Course', 'Resina con Metal', 'Resin whith Metal', 'La Resina tiene muchos usos y formas de aplicación por lo que hemos dividido el curso en varios talleres que lo puedes tomar en el orden que desees según te interese.', 'Resin has many uses and applications, so we have divided the course into several workshops that you can take in any order you wish, depending on your interests.', 'Lunes 13 y 20 de Abril', 'Monday April 13th and 20th', '2:30 PM A 4 PM', '2:30 PM - 4 PM', '2 clases de 1:30 horas c/u', '2 classes of 1:30 hours e/o', '1 proyecto', '1 project', '3 horas', '3 hours', '90', '2023-05-17 23:35:15resinaymetalljpg.jpg', '2023-05-18 03:35:18', '2026-03-05 19:06:48'),
+(3, 'Curso Online', 'Online Course', 'Esmalte al Fuego', 'Torch-Fired Enamel', 'Este taller de esmalte sobre metal al fuego está diseñado para que puedas crear tus piezas de una manera simple usando incluso un soplete de cocina.', 'This torch-fired enameling workshop focuses on accessible techniques for creating custom metal pieces using controlled heating methods.', 'Lunes 27 de Marzo y 3 de Abril', 'Monday March 27th and  April 3th', '2:30 PM A 4 PM', '2:30 PM to 4 PM', '1 clase', '1 class', '1 proyecto', '1 project', '3 horas', '3 Hours', '50', '2023-05-17 23:38:41esmaltealfuegopng.png', '2023-05-18 03:38:44', '2026-03-05 19:15:59'),
+(4, 'Curso Online', 'Online Course', 'Elaboración Molde de Silicona', 'Silicone Mold Making', 'Es ideal para reproducir piezas, se usa para verter en ellos cera derretida para procesos de fundición o también resinas, tiene muchas utilidades, por ejemplo en el Metal clay se usan texturas en planchas hechas de silicona', 'It is ideal for reproducing pieces; it can be used to pour melted wax for casting processes or for resins. It has many uses; for example, in Metal Clay, silicone sheets are used to create textures.', 'Lunes 10 y 17 de Abril', 'Monday April 10 and 17', '12 PM A 1 PM', '12 PM to 1 PM', '2 clases de 1:30 horas c/u', '2 classes of 1:30 hours e/o', '1 proyecto', '1 project', '3 horas', '3 hours', '90', '2023-05-17 23:40:18moldesiliconapng.png', '2023-05-18 03:40:20', '2026-03-05 19:18:17'),
+(5, 'Curso Online', 'Online Course', 'Baños Electrolíticos de Oro sobre Plata', 'Gold Electroplating on Silver', 'Se dará toda la información del tipo de máquina o regulador ideal según sean tus recubrimientos a realizar, trabajaremos en la preparación de la pieza a enchapar y todo el tema del ánodo y todo y el uso de la solución de oro.', 'Complete information will be provided regarding the ideal type of machine or rectifier depending on the coatings you wish to achieve. We will work on preparing the piece for plating, the setup of the anode, and the correct use of the gold solution.', 'Lunes 10 de Abril', 'Monday April 10th', '2:30 PM A 4:30 PM', '2:30 PM to 4:30 PM', '1 clases de 2 horas', '1 class de 2 hours e/o', '1 proyecto', '1 project', '3 horas', '3 hours', '90', '2023-05-17 23:42:24electrolitospng.png', '2023-05-18 03:42:27', '2026-03-05 19:21:11'),
+(6, 'Curso Online', 'Online Course', 'Curso Básico de Orfebrería', 'Basic Metalsmithing Course', 'Este es un paquete de 4 proyectos en un taller, esta ideal para quienes quieren una formación rápida e intensiva, trabajaremos 3 anillos y unos aretes que son los que están en la foto, aprenderás desde las técnicas más básicas.', 'This is a 4-project workshop package, ideal for those seeking fast and intensive training. We will work on the three rings and the pair of earrings shown in the photo; you will learn everything starting from the most basic techniques.', '24 Abril a 1/8/15 de Mayo', 'April 24th to May 1/8/15', '12 PM A 1:30 PM', '12 PM to 1:30 PM', '4 clases de 1:30 horas c/u', '4 classes of 1:30 hours e/o', '1 proyecto', '1 project', '3 horas', '3 hours', '180', '2023-05-17 23:45:25basicoorfebreriapng.png', '2023-05-18 03:45:27', '2026-03-05 20:33:25'),
+(7, 'Curso Online', NULL, 'Remaches', NULL, '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">En este taller aprenderás la forma más rápida y segura para unir materiales sin necesidad de soldaduras o pegamentos, solo utilizaras remache también conocido como \"Soldadura en frio\", formidable recurso a la hora de unir elementos que no se pueden soldar y seguro.</span></p>', NULL, 'Lunes 22 y 29 de Mayo', NULL, '12 PM A 1 PM', NULL, '2 clases de 1:30 horas c/u', NULL, '1 proyecto', NULL, '3 horas', NULL, '90', '2023-05-17 23:47:48remachespng.png', '2023-05-18 03:47:56', '2023-05-18 03:47:56'),
+(8, 'Curso Online', NULL, 'Cordón Tejido', NULL, '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">Este cordón resulta una fina solución cuando estamos realizando un dije y necesitamos una cadena para colgarlo o necesitamos una forma para completar una pulsera etc. es de muy fácil elaboración y es muy entretenido</span></p>', NULL, 'Lunes 22 de Mayo', NULL, '2:30 PM A 4:30 PM', NULL, '1 clase', NULL, '1 proyecto', NULL, '2 horas', NULL, '45', '2023-05-17 23:49:55cordontejidopng.png', '2023-05-18 03:49:59', '2023-05-18 03:49:59'),
+(9, 'Curso Online', NULL, 'Engaste de Piedra Facetada en Caja sobre Superficie Curva', NULL, '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">Técnica avanzada, el participante debe saber ya realizar una caja para engastar piedra y buen uso de la lima de media caña el objetivo es que la caja se adapte a la forma curva del anillo o también de un brazalete</span></p>', NULL, 'Lunes 5 y 12 de Junio', NULL, '12 PM A 1:30 PM', NULL, '2 clases de 1:30 horas c/u', NULL, '1 proyecto', NULL, '3 horas', NULL, '90', '2023-05-17 23:52:13engastepiedrapng.png', '2023-05-18 03:52:15', '2023-05-18 03:52:15');
 
 -- --------------------------------------------------------
 
@@ -194,16 +203,19 @@ INSERT INTO `cronologiacursos` (`id`, `modo`, `title`, `description`, `fecha`, `
 CREATE TABLE `cursos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `price` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `adicional` text DEFAULT NULL,
-  `modal` varchar(255) NOT NULL,
-  `slug` text NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `price` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `description_eng` text COLLATE utf8mb4_unicode_ci,
+  `adicional` text COLLATE utf8mb4_unicode_ci,
+  `adicional_eng` text COLLATE utf8mb4_unicode_ci,
+  `modal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `isFeatured` tinyint(1) NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `urlVideo` varchar(255) DEFAULT NULL,
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `urlVideo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -212,64 +224,64 @@ CREATE TABLE `cursos` (
 -- Volcado de datos para la tabla `cursos`
 --
 
-INSERT INTO `cursos` (`id`, `user_id`, `name`, `price`, `description`, `adicional`, `modal`, `slug`, `isFeatured`, `image`, `urlVideo`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Curso de Remache combinado con Cuero y otros materiales', '220', 'Este taller aprenderás la forma más rápida y segura de unir materiales', '<p style=\"margin-left:0px;\">En este taller aprenderás la forma más rápida y segura para unir materiales sin necesidad de soldaduras ni pegamentos, solo utilizaras el remache también conocido como \"Soldadura en frio\", puedes unir metales como aluminio, oro, plata y acero, etc. junto con materiales como el cuero el vidrio, acrílico etc.<br>Es un formidable recurso a la hora de unir elementos que no se pueden soldar y muy seguro.</p><ul><li>2 clases</li><li>6 horas</li><li>2 proyecto</li><li>Costo: $220</li></ul>', 'remachecuero0', 'curso-de-remache-combinado-con-cuero-y-otros-materiales', 0, '2023-05-22 14:53:19remache-cueropng.png', NULL, 'PUBLISHED', '2023-05-14 05:05:00', '2023-05-22 21:53:22'),
-(2, 1, 'Esmalte al fuego', '160', 'Taller de esmalte sobre metal al fuego', '<p style=\"margin-left:0px;\">Este taller de esmalte sobre metal al fuego esta diseñado para que puedas crear tus piezas de una manera simple usando incluso un soplete de cocina, podrás realizar hermosas piezas con colores, alegrar y refrescar tu trabajo actual, el curso se hace en un dia, es continuo por 6 horas.<br>El material esta incluido</p><ul><li>Full Day</li><li>6 horas de capacitación y creación continuas</li><li>varios proyectos</li></ul>', 'esmaltefuego', 'esmalte-al-fuego', 0, '2023-05-18 00:00:36esmaltealfuegopng.png', 'CcrmJ0MAPKY', 'PUBLISHED', '2023-05-17 05:15:13', '2023-05-18 04:00:38'),
-(3, 1, 'Alambrismo Avanzado', '200', 'Este nivel trabajaremos con otras técnicas más de tipo manual', '<p style=\"margin-left:0px;\">En este nivel trabajaremos con otras técnicas más de tipo manual sin tanta intervención del alicate, entorchado de hilos, trenzados, amarres y mucha creatividad serán las constantes para la confección de estos proyectos a realizar.<br>Todos nuestros cursos incluyen los materiales</p><ul><li>Clases: 2</li><li>horas: 8</li><li>proyectos: 2</li></ul>', 'alambrismoavanzado', 'alambrismo-avanzado', 0, '2023-05-18 00:02:17alambrismo-avanzadopng.png', 'WZRkLcyAbN0', 'PUBLISHED', '2023-05-17 05:15:13', '2023-05-18 04:02:19'),
-(4, 1, 'Filigrana', '350', 'En este taller aprenderás todo lo relacionado con esta parte importante de la joyería', '<p style=\"margin-left:0px;\">En este taller aprenderás todo lo relacionado con esta parte tan importante de la joyería como es la Filigrana, aprenderás desde cómo preparar la cinta doble trenzada y laminada que deja el borde dentado hasta como realizar el relleno, soldadura y sus acabados.</p><ul><li>3 clases</li><li>9 horas</li><li>2 proyectos</li></ul>', 'filigrana', 'filigrana', 0, '2023-05-18 00:03:45filigranapng.png', 'bDQp1aM9w3w', 'PUBLISHED', '2023-05-18 02:39:11', '2023-05-18 04:04:03'),
-(5, 1, 'Resina Coloreada', '350', 'Aprenderás a hacer calados y soldaduras para la confección de las joyas', '<p style=\"margin-left:0px;\">Aprenderás hacer calados y soldaduras para la confección de las joyas donde se aplicará la resina con color</p><ul><li>3 clases</li><li>9 horas</li></ul>', 'resinacoloreada', 'resina-coloreada', 1, '2023-05-22 10:32:0402jpg.jpg', NULL, 'PUBLISHED', '2023-05-18 04:06:34', '2023-05-22 17:32:05'),
-(6, 1, 'Resina y Madera', '240', 'Elabora hermosas piezas de orfebrería combinando madera y resina', '<p style=\"margin-left:0px;\">Elabora hermosas piezas de orfebrería combinando madera y resina coloreada</p><ul><li>2 clases, 4 horas c/u</li><li>8 horas, clase privada</li></ul>', 'resinamadera', 'resina-y-madera', 1, '2023-05-22 10:32:3108jpg.jpg', NULL, 'PUBLISHED', '2023-05-18 04:08:00', '2023-05-22 17:32:39'),
-(7, 1, 'Resina y Metal', '350', 'Aprenderás algo de soldadura y cómo se aplica la resina', '<p style=\"margin-left:0px;\">Aprenderás algo de soldadura y como se aplica la resina</p><ul><li>Clases: 3</li><li>Horas: 9</li></ul>', 'resinametal', 'resina-y-metal', 1, '2023-05-22 10:35:55resinametaljpg.jpg', NULL, 'PUBLISHED', '2023-05-18 04:09:13', '2023-05-22 17:35:57'),
-(8, 1, 'Resina por Inclusión', '220', 'Elaboraremos unas piezas usando dos tecnicas distintas, una con molde de silicona y otra en bastidor de metal', '<p style=\"margin-left:0px;\">Elaboraremos unas piezas usando por un lado un molde de silicona y otra en metal</p><ul><li>2 clases</li><li>6 horas</li></ul>', 'resinainclusion', 'resina-por-inclusion', 1, '2023-07-30 01:44:47300-x-300png.png', NULL, 'PUBLISHED', '2023-05-18 04:10:56', '2023-07-31 00:50:45'),
-(9, 1, 'Curso Remache con Engaste', '220', 'En este taller aprenderás la forma más rápida y segura para unir materiales sin necesidad de soldaduras ni pegamentos', '<p style=\"margin-left:0px;\">En este taller aprenderás la forma más rápida y segura para unir materiales sin necesidad de soldaduras ni pegamentos, solo utilizaras el remache también conocido como \"Soldadura en frio\", puedes unir metales como aluminio, oro, plata y acero, etc. junto con materiales como el cuero el vidrio, acrílico etc.<br>Es un formidable recurso a la hora de unir elementos que no se pueden soldar y muy seguro.</p><ul><li>2 clases</li><li>6 horas</li><li>2 proyectos</li></ul>', 'remacheengaste', 'curso-remache-con-engaste', 0, '2023-05-18 00:12:38remachespng.png', NULL, 'PUBLISHED', '2023-05-18 04:12:40', '2023-05-18 04:12:48'),
-(10, 1, 'Curso Bisabra y Broche Gaveta', '380', 'Articulaciones, micro mecanismos o bisagras, en este taller construiremos un brazalete con bisagra', '<p style=\"margin-left:0px;\">Articulaciones, micro mecanismo o bisagras, en este taller construiremos un brazalete con bisagra y broche de gaveta, fabricaremos la charnela o tubo y como se ajusta, remache y acabados</p><ul><li>3 clases de 3 horas c/u</li><li>12 horas</li><li>1 proyecto, brazalete</li></ul>', 'bisagragaveta', 'curso-bisagra-y-broche-gaveta', 0, '2023-05-18 00:14:25bisagrabrochepng.png', NULL, 'PUBLISHED', '2023-05-18 04:14:34', '2023-05-18 04:15:24'),
-(11, 1, 'Curso de Joyería Textil', '250', 'Usando la técnica de telar y utilizando hilos finos de metal podemos crear este tipo de malla sólida', '<p style=\"margin-left:0px;\">Usando la técnica del telar y utilizando hilos finos de metal podemos crear este tipo de malla solida muy usada en el alambrismo</p><ul><li>2 clases de 4 horas c/u</li><li>8 horas</li><li>1 proyecto, brazalete</li></ul>', 'joyeriatextil', 'curso-de-joyeria-textil', 0, '2023-05-18 00:17:02joyeria-textilpng.png', NULL, 'PUBLISHED', '2023-05-18 04:17:05', '2023-05-18 04:17:13'),
-(12, 1, 'Crayon Art', '350', 'Usaremos creyones para elaborar junto con la resina piezas de joyería', '<p style=\"margin-left:0px;\">Usaremos creyones para elaborar junto con la resina piezas de joyería</p><ul><li>3 clases</li><li>9 horas</li></ul>', 'crayonart', 'crayon-art', 0, '2023-05-18 00:18:16crayonartjpg.jpg', NULL, 'PUBLISHED', '2023-05-18 04:18:18', '2023-05-18 04:18:25'),
-(13, 1, 'Curso Engaste de piedras facetadas en caja', '380', 'En este Taller realizaremos un Anillo con engaste de caja para una piedra facetada octogonal, trabajo de mucha precision con ayuda del motor colgante y fresas, este engaste tambien es conocido como falso engaste, es cuestion de practicar', '<p style=\"margin-left:0px;\">Usando la técnica del telar y utilizando hilos finos de metal podemos crear este tipo de malla solida muy usada en el alambrismo</p><ul><li>3 clases de 3 horas c/u</li><li>12 horas</li><li>1 proyecto</li></ul>', 'piedrasfacetada', 'curso-engaste-de-piedras-facetadas-en-caja', 0, '2023-09-10 17:15:21diseno-sin-titulo-10300-x-300png.png', NULL, 'PUBLISHED', '2023-05-18 04:20:16', '2023-09-11 00:15:25'),
-(14, 1, 'Curso Anillo de Piedra reconstituido en base metal', '380', 'Anillo de piedra reconstituida, sobre un anillo tipo Bulgari', '<p style=\"margin-left:0px;\">ANILLO DE PIEDRA RECONSTITUIDA, sobre un anillo tipo Bulgari reconstituiremos la superficie con piedra molida como: Malaquita, Turquesa y Lapislázuli.<br>El curso está dividido en una parte de orfebrería y la otra el molido de la piedra y forma de aplicarlo y sus acabados</p><ul><li>3 clases de 3 horas c/u</li><li>9 horas</li><li>1 proyecto</li></ul>', 'anillopiedrareconst', 'curso-anillo-de-piedra-reconstituido-en-base-metal', 0, '2023-05-18 00:22:10anillopriedrapng.png', NULL, 'PUBLISHED', '2023-05-18 04:22:11', '2023-05-18 04:22:19'),
-(15, 1, 'Curso de Reconstituido', '380', 'Para aprender a realizar este tipo de anillo con piedra molidas primero realizaremos el contenedor donde aprenderás...', '<p style=\"margin-left:0px;\">Para aprender a realizar este tipo de anillo con piedras molidas primero realizaremos el contenedor donde aprenderás técnicas de joyería y podemos hacer como proyecto un anillo o dije.</p><ul><li>3 clases</li><li>9 horas</li><li>1 proyecto</li></ul>', 'reconstituido', 'curso-de-reconstituido', 0, '2023-05-18 00:36:12reconstituidopng.png', NULL, 'PUBLISHED', '2023-05-18 04:36:14', '2023-05-18 04:36:22'),
-(16, 1, 'Curso Anillo de Volumen', '380', 'Realizaremos un anillo de sello y entraremos en el tema de la joyería', '<p style=\"margin-left:0px;\">Realizaremos un anillo de sello y entraremos en el tema de la joyería Hueca y volumetrica</p><ul><li>3 clases</li><li>9 horas</li><li>1 proyecto</li></ul>', 'anillovolumen', 'curso-anillo-de-volumen', 0, '2023-05-18 00:37:31anillovolumenpng.png', NULL, 'PUBLISHED', '2023-05-18 04:37:33', '2023-05-18 04:37:41'),
-(17, 1, 'Curso Anillo Comprimido', '380', 'Un modelo de técnica avanzada, el alumno debe de tener dominio de la soldadura y uso de soplete aprenderemos como se crea este tipo de efecto', '<p style=\"margin-left:0px;\">Es un modelo de técnica avanzada, el alumno debe de tener dominio de la soldadura y uso de soplete aprenderemos como se crea este tipo de efecto haciendo un tipo de comprimido mecánico sobre el metal.</p><ul><li>3 clases de 3 horas c/u</li><li>9 horas</li><li>1 proyecto</li></ul>', 'anillocomprimido', 'curso-anillo-comprimido', 0, '2023-05-18 00:38:53anillocomprimidopng.png', NULL, 'PUBLISHED', '2023-05-18 04:38:55', '2023-05-18 04:39:03'),
-(18, 1, 'Curso de Anillo Plegado', '240', 'un hermoso modelo de con sencilla técnica muy especial por sus dimensiones y curvas que le da al diseño a pesar...', '<p style=\"margin-left:0px;\">Es un hermoso modelo de con sencilla técnica muy especial por sus dimensiones y curvas que le da al diseño a pesar de que es realizado con hilo y lamina.</p><ul><li>2 clases de 3 horas c/u</li><li>6 horas</li><li>1 proyecto</li></ul>', 'anilloplegado', 'curso-anillo-plegado', 0, '2023-05-18 00:43:39anilloplegadopng.png', NULL, 'PUBLISHED', '2023-05-18 04:43:42', '2023-05-18 04:43:49'),
-(19, 1, 'Curso de Anillo con Engaste 6 uñas', '280', 'Anillo con montura de 6 uñas, adiestramiento en soldadura, el alumno debe de tener conocimientos básicos del oficio', '<p style=\"margin-left:0px;\">Elaboración de un anillo con montura de 6 uñas, adiestramiento en soldadura, el alumno debe de tener conocimientos básicos del oficio.</p><p style=\"margin-left:0px;\">Clases: 3</p><p style=\"margin-left:0px;\">Horas: 9</p><p style=\"margin-left:0px;\">Numero de Proyectos:</p><ul><li>1 anillo</li></ul>', 'anillo6', 'curso-de-anillo-con-engaste-6-unas', 0, '2023-05-18 00:45:41engastedeunaspng.png', NULL, 'PUBLISHED', '2023-05-18 04:45:43', '2023-05-18 04:57:49'),
-(20, 1, 'Alambrismo Básico', '280', 'En este taller aprenderás el correcto uso del Alicate y el tratamiento del Alambre, se realizarán unos proyectos de entrenamiento como pulsera, anillo...', '<p style=\"margin-left:0px;\">En este taller aprenderás el correcto uso del Alicate y el tratamiento del Alambre, se realizarán unos proyectos de entrenamiento como pulsera, anillo y zarcillos</p><ul><li>Clases: 2</li><li>proyectos: 8</li></ul>', 'alambrismobasico', 'alambrismo-basico', 0, '2023-05-18 01:00:29alambrismobasicopng.png', 'oKJgmWeRKoo', 'PUBLISHED', '2023-05-18 05:00:46', '2023-05-18 05:00:54'),
-(21, 1, 'Curso de elaboración de molde con masa epoxica', '180', 'Es un hermoso modelo de con sencilla técnica muy especial por sus dimensiones y curvas que le da al diseño a pesar...', '<p style=\"margin-left:0px;\">Es un hermoso modelo de con sencilla técnica muy especial por sus dimensiones y curvas que le da al diseño a pesar de que es realizado con hilo y lamina.</p><ul><li>1 clases</li><li>4 horas</li><li>1 proyecto</li></ul>', 'moldeepoxica', 'curso-de-elaboracion-de-molde-con-masa-epoxica', 0, '2023-05-18 01:02:43moldeepoxicapng.png', NULL, 'PUBLISHED', '2023-05-18 05:02:45', '2023-05-18 05:02:52'),
-(22, 1, 'Curso de Grabado al acido y remaches', '220', 'El grabado en el metal es como dibujar sobre el metal, para eso usamos ciertas sustancias las cuales te enseñaremos a usar para que puedas hacer tus diseños', '<p style=\"margin-left:0px;\">El grabado en el metal es como dibujar sobre el metal, para eso usamos ciertas sustancias las cuales te enseñaremos a usar para que puedas hacer tus diseños como dar texturas o imprimir formas en el metal y trabajaremos con 2 tipos de materiales como bronce y cobre con remaches</p><ul><li>2 clases</li><li>6 horas</li><li>1 pulsera como proyecto</li></ul>', 'gabadoacidoremaches', 'curso-de-grabado-al-acido-y-remaches', 0, '2023-05-18 01:04:28grabadoalacidoyremachespng.png', NULL, 'PUBLISHED', '2023-05-18 05:04:31', '2023-05-18 05:04:39'),
-(23, 1, 'Curso de Anillo Embutido y Galloneado', '120', 'Este es un anillo muy clásico en la joyería que puede también ser decorado con galloneados', '<p style=\"margin-left:0px;\">Este es un anillo muy clásico en la joyería que puede también ser decorado con galloneados y engastes de pave, embutimos en el dado para curvear el anillo</p><ul><li>1 clases</li><li>4 horas</li><li>1 proyecto</li></ul>', 'anillogalloneado', 'curso-de-anillo-embutido-y-galloneado', 0, '2023-08-19 20:43:47anillo-galloneado-300-x-300jpg.jpg', NULL, 'PUBLISHED', '2023-05-18 05:05:48', '2023-08-20 03:44:55'),
-(24, 1, 'Curso de Anillo varios aros enlazados', '220', 'También conocido como Anillo Cartier , este anillo es el que tradicionalmente se usaba en Rusia como anillo de matrimonio también llamado Anillo de los Zares', '<p style=\"margin-left:0px;\">También conocido como Anillo Cartier , este anillo es el que tradicionalmente se usaba en Rusia como anillo de matrimonio también llamado Anillo de los Zares.</p><ul><li>2 clases</li><li>4 horas</li><li>1 proyecto</li></ul>', 'anilloenlzado', 'curso-de-anillo-varios-aros-enlazados', 0, '2023-05-18 01:07:28anillovariosarospng.png', NULL, 'PUBLISHED', '2023-05-18 05:07:30', '2023-05-18 05:07:37'),
-(25, 1, 'Curso de Calado', '120', 'Esta es la técnica mas básica del oficio con la que puedes realizar maravillosas joyas en los materiales que desees además del metal con esta técnica...', '<p style=\"margin-left:0px;\">Esta es la técnica mas básica del oficio con la que puedes realizar maravillosas joyas en los materiales que desees además del metal con esta técnica y el uso del arco de sequeta puedes usarlo también en acrílico, madera entre otros</p><ul><li>1 clases</li><li>4 horas</li><li>1 proyecto</li></ul>', 'calado', 'curso-de-calado', 0, '2023-05-18 01:08:50caladopng.png', NULL, 'PUBLISHED', '2023-05-18 05:08:51', '2023-05-18 05:08:58'),
-(26, 1, 'Curso de Flor Repujada', '220', 'Aprenderás a calar o cortar el metal con el arco de segueta el recocido del metal, el embutido y coplado para conformar la flor', '<p style=\"margin-left:0px;\">Aprenderás a calar o cortar el metal con el arco de segueta el recocido del metal, el embutido y coplado para conformar la flor</p><ul><li>3 clases</li><li>9 horas</li><li>1 proyecto</li></ul>', 'florrepujada', 'curso-de-flor-repujada', 0, '2023-05-18 01:10:14florrepujadapng.png', NULL, 'PUBLISHED', '2023-05-18 05:10:16', '2023-05-18 05:10:22'),
-(27, 1, 'Curso de Anillo Encamisado', '320', 'Si ya te has propuesto hacer un anillo con las complicaciones de este es porque ya manejas muy bien la soldadura...', '<p style=\"margin-left:0px;\">Si ya te has propuesto hacer un anillo con las complicaciones de este es porque ya manejas muy bien la soldadura y tienes destreza en el uso de las herramientas para dar forma y ajustar partes, es un anillo clásico con muchas variaciones</p><ul><li>3 clases</li><li>9 horas</li><li>1 proyecto</li></ul>', 'anilloencamisado', 'curso-de-anillo-encamisado', 0, '2023-05-18 01:11:09anilloencamisadopng.png', NULL, 'PUBLISHED', '2023-05-18 05:11:11', '2023-05-18 05:11:19'),
-(28, 1, 'Curso de Grabado al Acido', '180', 'El grabado en el metal es como pintar en él para eso usamos ciertas sustancias las cuales te enseñaremos a usar para que puedas...', '<p style=\"margin-left:0px;\">El grabado en el metal es como pintar en él para eso usamos ciertas sustancias las cuales te enseñaremos a usar para que puedas hacer tus diseños, como dar texturas o imprimir formas en el metal</p><p style=\"margin-left:0px;\">Clases: 1</p><p style=\"margin-left:0px;\">Horas: 4</p><p style=\"margin-left:0px;\">Numero de Proyectos:</p><ul><li>brazalete</li></ul>', 'grabadoacido', 'curso-de-grabado-al-acido', 0, '2023-05-18 01:12:19grabadoalacidopng.png', NULL, 'PUBLISHED', '2023-05-18 05:12:21', '2023-08-06 01:47:50'),
-(29, 1, 'Curso de Engaste de Caja Cabujon', '220', 'Trabajaremos en La elaboración de una caja para piedra cabujón, es considerado el engaste de mayor seguridad...', '<p style=\"margin-left:0px;\">Trabajaremos en La elaboración de una caja para piedra cabujón, es considerado el engaste de mayor seguridad, funciona para piedras cabujón o formas irregulares en este taller realizaremos un anillo y un dije.</p><ul><li>1 clases</li><li>6 horas</li><li>1 proyecto</li></ul>', 'engastecajacabujon', 'curso-de-engaste-caja-cabujon', 0, '2023-05-18 01:14:23engastecajacabujonpng.png', NULL, 'PUBLISHED', '2023-05-18 05:14:32', '2023-05-18 05:14:39'),
-(30, 1, 'Curso de Engaste de 4 Uñas', '380', 'Se realizara un anillo con engaste de 4 uñas para piedra facetada preferiblemente redonda u ovalada, el participante debe...', '<p style=\"margin-left:0px;\">Se realizara un anillo con engaste de 4 uñas para piedra facetada preferiblemente redonda u ovalada, el participante debe de tener dominio del soplete y soldadura</p><ul><li>3 clases de 3 horas cada uno</li><li>9 horas</li><li>1 proyecto</li></ul>', 'engaste4unas', 'curso-de-engaste-de-4-unas', 0, '2023-05-18 01:16:12engaste4png.png', NULL, 'PUBLISHED', '2023-05-18 05:16:14', '2023-05-18 05:16:20'),
-(31, 1, 'Curso de Anillo Bulgari', '220', 'Este anillo consta de 3 partes las cuales son: los aros de los bordes realizados en hilo cuadrado y una banda central el taller...', '<p style=\"margin-left:0px;\">Este anillo consta de 3 partes las cuales son: los aros de los bordes realizados en hilo cuadrado y una banda central el taller consiste en preparar con medidas exactas estas 3 piezas para posteriormente ser ensambladas y soldadas obteniendo este hermoso modelo</p><ul><li>2 clases</li><li>6 horas</li><li>1 proyecto</li></ul>', 'anillobulgari', 'curso-de-anillo-bulgari', 0, '2023-05-18 01:17:18anillobulgaripng.png', NULL, 'PUBLISHED', '2023-05-18 05:17:20', '2023-05-18 05:17:26'),
-(32, 1, 'Curso Modelado en Cera', '220', 'Se  realizara un anillo Bombe con la técnica del modelado en cera realizando la talla y escavado de la cera usando para ello limas...', '<p style=\"margin-left:0px;\">Se realizara un anillo Bombe con la técnica del modelado en cera realizando la talla y escavado de la cera usando para ello limas y fresas hasta lograr el modelo con los diámetros o espesor de la pieza en la medida correcta realizándole los acabados correspondientes dejándolo listo para el proceso de fundición obteniendo como resultado la misma pieza en el material deseado sea oro o plata</p><ul><li>2 clases</li><li>6 horas</li><li>1 proyecto</li></ul>', 'modeladocera', 'curso-de-modelado-en-cera', 0, '2023-05-18 01:18:27modeladocerapng.png', NULL, 'PUBLISHED', '2023-05-18 05:18:29', '2023-05-18 05:18:35'),
-(33, 1, 'Curso Anillo con Engaste 2 Uñas', '260', 'Este es un hermoso modelo de anillo con un engaste con solo 2 uñas es ideal para piedras redondas, el participante debe de tener dominio del soplete', '<p style=\"margin-left:0px;\">Este es un hermoso modelo de anillo con un engaste con solo 2 uñas es ideal para piedras redondas, el participante debe de tener dominio del soplete y la soldadura.</p><ul><li>2 clases de 3 horas c/u</li><li>6 horas</li><li>1 proyecto</li></ul>', 'engaste2unas', 'curso-anillo-con-engaste-2-unas', 0, '2023-05-18 01:19:38encaste2png.png', NULL, 'PUBLISHED', '2023-05-18 05:19:40', '2023-05-18 05:19:47'),
-(34, 1, 'Curso de Anillo Embutido y Forjado', '260', 'Este anillo es de técnica avanzada ya que debemos de tener un dominio de martillo para el repujado y embutido...', '<p style=\"margin-left:0px;\">Este anillo es de técnica avanzada ya que debemos de tener un dominio de martillo para el repujado y embutido, utilizaremos el dado de embutir como herramienta de apoyo y le daremos volumen deseado al anillo.</p><ul><li>2 clases de 3 horas c/u</li><li>6 horas</li><li>1 proyecto</li></ul>', 'anilloembutidoforjado', 'curso-de-anillo-embutido-y-forjado', 0, '2023-05-18 01:21:09anilloforjadopng.png', NULL, 'PUBLISHED', '2023-05-18 05:21:11', '2023-05-18 05:21:20'),
-(35, 1, 'Metal Clay I', '360', 'En este taller trabajaremos el material de metal clay que como su nombre lo indica es arcilla y así la trabajaremos, como arcilla, por decirlo así \"modelaremos una joya\"...', '<p style=\"margin-left:0px;\">En este taller trabajaremos el material de metal clay que como su nombre lo indica es arcilla y así la trabajaremos, como arcilla, por decirlo así \"modelaremos una joya\", como una masa flexible, trabajaremos piezas sencillas estampado y texturas como las de una hoja del jardín o una de las tantas placas de texturas que se consiguen en el mercado, otra cosa importante es trabajar las uniones</p><ul><li>3 clases de 3 horas c/u</li><li>9 horas</li><li>1 proyecto</li><li>no incluye el material, el precio varia por ser metal precioso</li></ul>', 'metalclayI', 'metal-clay-1', 0, '2023-09-03 19:45:51metal-clay-300-x-300png.png', NULL, 'PUBLISHED', '2023-05-18 05:22:16', '2023-09-04 02:45:54'),
-(36, 1, 'Metal Clay 2', '320', 'En este nivel II nos pondremos como meta la creación de una pieza más compleja en su elaboración que debe contemplar muchos elementos...', '<p style=\"margin-left:0px;\">En este nivel II nos pondremos como meta la creación de una pieza más compleja en su elaboración que debe contemplar muchos elementos a unir</p><ul><li>3 clases de 3 horas c/u</li><li>9 horas</li><li>1 proyecto</li></ul>', 'metalclay2', 'metal-clay-2', 0, '2023-05-18 01:23:10metalclay2png.png', NULL, 'PUBLISHED', '2023-05-18 05:23:12', '2023-05-18 05:23:19'),
-(37, 1, 'Curso de Cadena Cubana', '360', 'Realizaremos una pulsera empezando por preparar nuestra soldadura y el hilo que necesitamos para realizarlo, el entorchado..', '<p style=\"margin-left:0px;\">Realizaremos una pulsera empezando por preparar nuestra soldadura y el hilo que necesitamos para realizarlo, el entorchado, el calado de eslabón y el armado y soldadura de la cadena, estirado y pulido, llevara un broche sencillo</p><ul><li>3 clases de 3 horas c/u</li><li>9 horas</li><li>1 proyecto</li></ul>', 'cadenacubana', 'curso-de-cadena-cubana', 0, '2023-05-22 12:10:48cadenacubanapng.png', NULL, 'PUBLISHED', '2023-05-18 05:24:20', '2023-05-22 19:10:51'),
-(38, 1, 'Curso de Engastes Artesanales', '380', 'Son muchas las maneras de engastar piedras de forma artesanal usando muchas veces solo el arco de segueta', '<p style=\"margin-left:0px;\">Son muchas las maneras de engastar piedras de forma artesanal usando muchas veces solo el arco de segueta y en otros casos soldaduras sencillas, realizaremos 3 diferentes engastes</p><ul><li>3 clases de 3 horas cada uno</li><li>9 horas</li><li>3 proyecto</li></ul>', 'engasteartesanal', 'curso-de-engastes-artesanales', 0, '2023-05-18 01:27:12engastesartesanalespng.png', NULL, 'PUBLISHED', '2023-05-18 05:27:13', '2023-05-18 05:27:20'),
-(39, 1, 'Curso de Reconstituido en Lamina', '380', 'Es la forma clásica de hacer un reconstituido sobre lamina, buscando un acabado liso y brillante, para ello', '<p style=\"margin-left:0px;\">Esta es la forma clásica de hacer un reconstituido sobre lamina, buscando un acabado liso y brillante, para ello debemos de calar y soldar dos laminas donde queden los espacios que rellenaremos con piedras molidas</p><ul><li>3 clases de 3 horas cada uno</li><li>9 horas</li><li>1 proyecto</li></ul>', 'reconstituidolamina', 'curso-de-reconstituido-en-lamina', 0, '2023-05-18 01:28:17reconstituidolaminapng.png', NULL, 'PUBLISHED', '2023-05-18 05:28:19', '2023-05-18 05:28:25'),
-(40, 1, 'Curso de Calado, Textura y Soldadura (Paquete)', '180', 'Es un curso intensivo de calado con conocimientos básicos del soplete soldadura, texturas martilladas y embutidos.', '<p style=\"margin-left:0px;\">Este es un curso intensivo de calado con conocimientos básicos del soplete soldadura, texturas martilladas y embutidos. En solo una clase aprenderás estas importantes técnicas de la joyería y te llevaras un par de zarcillos embutidos y un anillo de plantilla realizados por ti</p><ul><li>1 clases</li><li>4 horas</li><li>2 proyecto</li></ul>', 'caladotexturasoldadura', 'curso-de-calado-textura-y-soldadura-paquete', 0, '2023-08-20 19:32:49300-x-300jpg.jpg', NULL, 'PUBLISHED', '2023-05-18 05:29:48', '2023-08-21 02:33:06'),
-(41, 1, 'Curso de Anillo Reconstituido sin Base, Solido', '220', 'Realizaremos un anillo 100% reconstituido sin necesidad de base compactaremos la molienda de piedra y daremos forma...', '<p style=\"margin-left:0px;\">Realizaremos un anillo 100% reconstituido sin necesidad de base compactaremos la molienda de piedra y daremos forma al anillo</p><ul><li>2 clases</li><li>6 horas</li><li>4 proyecto</li></ul>', 'anillosinbase', 'curso-de-anillo-reconstituido-sin-base-solido', 0, '2023-05-18 01:31:32anilloreconstituidopng.png', NULL, 'PUBLISHED', '2023-05-18 05:31:36', '2023-05-18 05:31:43'),
-(42, 1, 'Curso de Anillo de Madera Reconstituida y Base de Plata', '380', 'Utilizando chapilla ( laminas) haremos este aro solido en madera con un método que te enseñaremos el cual será montado...', '<p style=\"margin-left:0px;\">Utilizando chapilla ( laminas) haremos este aro solido en madera con un método que te enseñaremos el cual será montado en un anillo de plata con la técnica de encapsulado</p><ul><li>3 clases</li><li>9 horas</li><li>1 proyecto</li></ul>', 'anillomadera', 'curso-de-anillo-de-madera-reconstituida-y-base-de-plata', 0, '2023-05-18 01:33:08anillomaderapng.png', NULL, 'PUBLISHED', '2023-05-18 05:33:28', '2023-05-18 05:33:37'),
-(43, 1, 'Curso Básico de Orfebrería', '480', 'Paquete de proyectos en un solo taller esta especialmente diseñado para quieres quieren una formación rápida e intensiva, es una manera de empezar aunque es mucha la información contenida', '<p style=\"margin-left:0px;\">Este paquete de proyectos en un solo taller esta especialmente diseñado para quieres quieren una formación rápida e intensiva, es una manera de empezar aunque es mucha la información contenida ya que en 4 proyectos aprenderás todas las técnicas básicas incluso engaste de cabujón que ya es avanzado, y después puedes continuar con el orden del curso de capacitación curricular<br>Proyectos a Realizar:</p><ul><li>anillo de plantilla</li><li>zarcillos embutidos con texturas con ganchos</li><li>anillo embutido</li><li>anillo con piedra cabujón en engaste de caja</li><li>4 clase clase</li><li>12 horas</li><li>4 proyecto</li></ul>', 'basicoorfebreria', 'curso-basico-de-orfebreria', 1, '2023-05-22 10:37:17basicoorfebreriajpg.jpg', 'WZRkLcyAbN0', 'PUBLISHED', '2023-05-18 05:35:17', '2023-05-22 17:37:20'),
-(44, 1, 'Cadenas Armadas y Abiertas (sin soldadura)', '120', 'Son muchas las cadenas para trabajar es todo un mundo...', '<p style=\"margin-left:0px;\">Son muchas las cadenas para trabajar es todo un mundo, las más usadas son :</p><ul><li>La Bizantina</li><li>Cola de pescado</li><li>La Redonda</li></ul><p style=\"margin-left:0px;\">cada cadena toma una clase la puedes tomar en el orden que desees</p><ul><li>1 clases</li><li>3 horas</li><li>1 proyecto</li></ul>', 'cadenaarmada', 'cadenas-armadas-y-abiertas-sin-soldadura', 0, '2023-05-18 01:36:40cadenaarmadapng.png', NULL, 'PUBLISHED', '2023-05-18 05:36:41', '2023-05-18 05:36:48'),
-(45, 1, 'Curso de Elaboración de Moldes de Silicona', '220', 'Técnica es ideal para reproducir piezas, puede ser usado para verter en ellos cera derretida para procesos de fundición o también resinas', '<p style=\"margin-left:0px;\">Esta técnica es ideal para reproducir piezas, puede ser usado para verter en ellos cera derretida para procesos de fundición o también resinas, tiene muchas utilidades, por ejemplo en el Metal clay se usan texturas en planchas hechas de silicona</p><ul><li>2 clases</li><li>6 horas</li><li>1 proyecto</li></ul>', 'moldesiliconaa', 'curso-de-elaboracion-de-moldes-de-silicona', 0, '2023-05-18 01:38:02moldesiliconapng.png', NULL, 'PUBLISHED', '2023-05-18 05:38:04', '2023-05-18 05:38:10'),
-(46, 1, 'Curso de Cordón Tejido', '120', 'Este cordón resulta una fina solución cuando estamos realizando un dije y necesitamos una cadena para colgarlo o necesitamos una forma', '<p style=\"margin-left:0px;\">Este cordón resulta una fina solución cuando estamos realizando un dije y necesitamos una cadena para colgarlo o necesitamos una forma para completar una pulsera etc. es de muy fácil elaboración y es muy entretenido</p><ul><li>1 clases</li><li>3 horas</li><li>1 proyecto</li></ul>', 'cordontejido', 'curso-de-cordon-tejido', 0, '2023-05-18 01:39:12cordontejidopng.png', NULL, 'PUBLISHED', '2023-05-18 05:39:14', '2023-05-18 05:39:35'),
-(47, 1, 'Curso de Escapulario con imagen en resina', '220', 'Realizaremos una pieza que consistirá en 2 etapas la primera es realizar la pieza en resina con la inclusión de una imagen', '<p style=\"margin-left:0px;\">Realizaremos una pieza que consistirá en 2 etapas la primera es realizar la pieza en resina con la inclusión de una imagen y como segunda parte es preparara la armazón en metal se realizara un diseño calado con textura y usaremos la técnica del remache para unir</p><ul><li>2 clases</li><li>6 horas</li><li>1 proyecto</li></ul>', 'escapularioresina', 'curso-de-escapulario-con-imagen-en-resina', 0, '2023-05-18 01:40:35escapulatoriopng.png', NULL, 'PUBLISHED', '2023-05-18 05:40:37', '2023-05-18 05:40:43'),
-(48, 1, 'Elaboración de cajas con la ayuda de: Lamina fina, una moneda y el dado de embutir', '220', 'Esta es una técnica de la vieja escuela, es como la introducción al troquel, es muy rápido de hacer, los contenedores', '<p style=\"margin-left:0px;\">Esta es una técnica de la vieja escuela, es como la introducción al troquel, es muy rápido de hacer, los contenedores normalmente los usos para resina o reconstituido.</p><ul><li>2 clase clase</li><li>6 horas</li><li>1 proyecto</li></ul>', 'cajalaminafina', 'elaboracion-de-cajas-con-la-ayuda-de-lamina-fina-una-moneda-y-el-dado-de-embutir', 0, '2023-05-18 02:22:02elabcajaspng.png', NULL, 'PUBLISHED', '2023-05-18 06:22:04', '2023-05-18 06:22:12'),
-(49, 1, 'Curso de Cadena China', '400', 'La Cadena China tiene una forma muy especial en su construcción y su técnica de ensamblaje, es muy elaborada pero de una gran hermosura para el diseño de joyas...', '<p style=\"margin-left:0px;\">La Cadena China tiene una forma muy especial en su construcción y su técnica de ensamblaje, es muy elaborada pero de una gran hermosura para el diseño de joyas, en este curso aprenderás a fundir y preparar tu hilo de plata, medidas y cálculos de la cadena para su confección y sus diferentes acabados.<br>Incluye materiales</p><ul><li>4 clases</li><li>12 horas</li><li>1 pulsera como proyecto</li></ul>', 'cadenachina', 'curso-de-cadena-china', 1, '2023-05-22 10:38:26cadenachinapng.png', NULL, 'PUBLISHED', '2023-05-18 06:23:19', '2023-05-22 17:38:28'),
-(50, 1, 'Curso de Diseño 3D', '960', 'Los tiempos han cambiado hace unos años un joyero para crear una joya con múltiples engastes de piedras en las formas más complicadas le podía llevar semanas de trabajo...', '<p style=\"margin-left:0px;\">Los tiempos han cambiado hace unos años un joyero para crear una joya con múltiples engastes de piedras en las formas más complicadas le podía llevar semanas de trabajo, ahora con este método de diseño 3D puedes desde tu computador realizar la joya más majestuosa que desees, esta se imprime después en impresora 3D en cera para pasar posteriormente al casting o fundición en el material deseado</p><ul><li>8 clases de 2 horas cada una</li><li>16 horas</li><li>varios proyecto</li></ul>', 'diseno3d', 'curson-de-diseno-3d', 1, '2023-05-22 10:38:51diseno3dpng.png', NULL, 'PUBLISHED', '2023-05-18 06:24:35', '2023-05-22 17:38:54'),
-(51, 1, 'Curso de baños Electrolíticos en Oro, Plata, Cobre, Niquel, Rodio', '160', 'En este taller aprenderás cómo se realiza un enchapado o baño electrolítico usando un regulador de voltaje y sales de metales como oro, plata...', '<p style=\"margin-left:0px;\">En este taller aprenderás cómo se realiza un enchapado o baño electrolítico usando un regulador de voltaje y sales de metales como oro, plata, etc.&nbsp;</p><p style=\"margin-left:0px;\">Aprenderás sobre la limpieza de la pieza, como debe estar su acabado según lo deseado y los cuidados que debemos que tener al momento de realizar esta tarea.</p><ul><li>1 clase</li><li>4 horas</li></ul>', 'banoelectrolitico', 'curso-de-banos-electroliticos-en-oro-plata-cobre-niquel-rodio', 1, '2023-05-22 10:39:36electrolitospng.png', NULL, 'PUBLISHED', '2023-05-18 06:33:54', '2023-05-22 17:39:39'),
-(52, 1, 'Curso Certificado en \"Asistente de Joyero Calificado\"', '10800', 'Este taller es una capacitación intensiva, con un perfil para \"Asistente de joyero\", formado para cumplir las diversas tareas que se realizan en un taller productivo o de servicios,', '<p style=\"margin-left:0px;\">Este taller es una capacitación intensiva, con un perfil para \"Asistente de joyero\", formado para cumplir las diversas tareas que se realizan en un taller productivo o de servicios, iniciamos el taller con la fundición de metal en crisol con soplete oxi-gas para realizar láminas e hilos y se continúa con un programa de clases dividido en tres niveles.</p><ul><li>120 clases, de 3 horas cada una</li><li>360 horas</li><li>3 niveles</li><li>3 horas diarias</li></ul>', 'joyerocalificado', 'curso-certificado-en-asistente-de-joyero-calificado', 1, '2023-05-22 10:40:19asistentejoyeropng.png', NULL, 'PUBLISHED', '2023-05-18 06:42:51', '2023-05-22 17:40:22'),
-(53, 1, 'Curso de Anillo Antiestress', '120', 'Este es un modelo de anillo con mucho movimientos ya que todos los aros internos se moverán libremente, los bordes los expandimos...', '<p style=\"margin-left:0px;\">Este es un modelo de anillo con mucho movimientos ya que todos los aros internos se moverán libremente, los bordes los expandimos con un embutidor y no se saldrán nunca<br>incluye materiales</p><ul><li>clases: 1</li><li>horas: 6</li><li>proyecto: 1</li></ul>', 'anilloantiestress', 'curso-de-anillo-antiestress', 0, '2023-08-19 21:22:26diseno-sin-titulo-4jpg.jpg', NULL, 'PUBLISHED', '2023-05-18 06:44:17', '2023-08-20 04:22:39'),
-(54, 1, 'Curso de Casting', '350', 'Aprende a reproducir piezas bajo esta forma también llamada cera perdida, aprenderás a realizar todo el proceso de fundición desde el momento...', '<p style=\"margin-left:0px;\">Aprende a reproducir piezas bajo esta forma también llamada cera perdida, aprenderás a realizar todo el proceso de fundición desde el momento de hacer el árbol de ceras hasta el momento de echar la colada en el molde</p><ul><li>3 clases, de 3 horas cada una</li><li>9 horas</li></ul>', 'casting', 'curso-de-casting', 1, '2023-05-22 10:40:45castingpng.png', NULL, 'PUBLISHED', '2023-05-18 06:45:19', '2023-05-31 19:39:31'),
-(55, 1, 'Anillos de Matrimonio', '300', 'curso anillo de novios, Un Taller especial donde los novios realizan su anillo de matrimonio', '<p>Un Taller especial donde los novios realizan su anillo de matrimonio.</p><p>El taller tiene una duración de 4 horas, aprenderás a soldar y realizar estos hermosos anillos en hilo plano o media caña,</p><p>Quedarán Felices!</p><p>haz tu cita!</p>', 'anillosdematrimonio', 'anillos-de-matrimonio', 1, '2023-08-03 21:03:20curso-noviosjpg.jpg', 'WZRkLcyAbN0', 'PUBLISHED', '2023-08-04 03:58:33', '2023-08-06 03:06:19'),
-(57, 5, 'Eventos Especiales para Grupos', '90', 'Eventos especiales para grupos! \nRecibimos hasta 6 personas,   el fin de este Taller es aprender mientras te diviertes, aprenderan tecnicas de la orfebreria usando metales, resina, madera, esmalte o lo que mas le guste, realizaran una hermosa pieza de joyeria, objeto o escultura  mientras disfrutas y compartes con amigos...el precio es por persona, haz tu cita', '<p>Eventos especiales para grupos!&nbsp;<br>Recibimos hasta 6 personas, &nbsp; el fin de este Taller es aprender mientras te diviertes, aprenderan tecnicas de la orfebreria usando metales, resina, madera, esmalte o lo que mas le guste, realizaran una hermosa pieza de joyeria, objeto o escultura &nbsp;mientras disfrutas y compartes con amigos...haz tu cita</p>', 'eventosespecialesparagrupos', 'Cursos-especiales-para-grupos', 1, '2023-08-12 18:58:20foto-agrandanda-cuerso-grupospng.png', NULL, 'PUBLISHED', '2023-08-06 01:42:32', '2023-08-13 01:58:25'),
-(58, 5, 'ANILLO DE PLATA CON RECONSTITUIDO EN PIEDRA', '320', 'En este video documente el proceso de como seria el paso a paso del curso para elaborar un Anillo en Banda con Reconstituido, si deseas tomar este curso online o en físico aquí en Houston Tx, solo contáctanos', '<p>Se realizara una Anillo o Dije en plata 925, con piedra de lapislazuli, Turquesa o Malaquita, en este video presento la elaboracion de un &nbsp;Anillo en Banda con Reconstituido, si deseas tomar este curso online o en físico aquí en Houston Tx, solo contactanos</p><p>En este video documente el proceso de lo que seria el curso para elaborar un Anillo en Banda con Reconstituido, si deseas tomar este curso online o en físico aquí en Houston Tx, solo contáctanos</p><p>3 clases de 3 horas cada una<br>9 Horas<br>Material de plata incluido<br>realizaremos una pieza en plata con reconstituido<br>costo: $320</p><p>&nbsp;</p>', 'anillodeplataconreconstituidoenpiedra', 'anillo-de-plata-con-reconstituido-en-piedra', 1, '2023-08-20 00:21:08300-x-300-jpgjpg.jpg', '8P9z2qzQ50o', 'PUBLISHED', '2023-08-14 00:11:06', '2023-08-20 07:21:36');
+INSERT INTO `cursos` (`id`, `user_id`, `name`, `name_eng`, `price`, `description`, `description_eng`, `adicional`, `adicional_eng`, `modal`, `slug`, `isFeatured`, `image`, `urlVideo`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Curso de Remache combinado con Cuero y otros materiales', 'Riveting Course: Combining Leather and Other Materials', '220', 'Este taller aprenderás la forma más rápida y segura de unir materiales', 'In this workshop, you will learn the fastest and safest way to join materials without the need for soldering or glues.', 'En este taller aprenderás la forma más rápida y segura para unir materiales sin necesidad de soldaduras ni pegamentos, solo utilizarás el remache también conocido como \"Soldadura en frío\", puedes unir metales como aluminio, oro, plata y acero, etc. junto con materiales como el cuero, el vidrio, acrílico etc.\n\nEs un formidable recurso a la hora de unir elementos que no se pueden soldar y es muy seguro.\n2 clases\n6 horas\n2 proyecto', 'In this workshop, you will learn the fastest and safest way to join materials without the need for soldering or glues. You will use riveting, also known as \'Cold Connection,\' to join metals such as aluminum, gold, silver, stainless steel, and more, with materials like leather, glass, acrylic, etc\nIt is a formidable resource for securely joining elements that cannot be soldered.\n2 classes\n6 hours\n2 projects', 'remachecuero0', 'curso-de-remache-combinado-con-cuero-y-otros-materiales', 0, '2023-05-22 14:53:19remache-cueropng.png', NULL, 'PUBLISHED', '2023-05-14 05:05:00', '2026-03-05 03:00:52'),
+(2, 1, 'Esmalte al fuego', NULL, '160', 'Taller de esmalte sobre metal al fuego', NULL, '<p style=\"margin-left:0px;\">Este taller de esmalte sobre metal al fuego esta diseñado para que puedas crear tus piezas de una manera simple usando incluso un soplete de cocina, podrás realizar hermosas piezas con colores, alegrar y refrescar tu trabajo actual, el curso se hace en un dia, es continuo por 6 horas.<br>El material esta incluido</p><ul><li>Full Day</li><li>6 horas de capacitación y creación continuas</li><li>varios proyectos</li></ul>', NULL, 'esmaltefuego', 'esmalte-al-fuego', 0, '2023-05-18 00:00:36esmaltealfuegopng.png', 'CcrmJ0MAPKY', 'PUBLISHED', '2023-05-17 05:15:13', '2023-05-18 04:00:38'),
+(3, 1, 'Alambrismo Avanzado', NULL, '200', 'Este nivel trabajaremos con otras técnicas más de tipo manual', NULL, '<p style=\"margin-left:0px;\">En este nivel trabajaremos con otras técnicas más de tipo manual sin tanta intervención del alicate, entorchado de hilos, trenzados, amarres y mucha creatividad serán las constantes para la confección de estos proyectos a realizar.<br>Todos nuestros cursos incluyen los materiales</p><ul><li>Clases: 2</li><li>horas: 8</li><li>proyectos: 2</li></ul>', NULL, 'alambrismoavanzado', 'alambrismo-avanzado', 0, '2023-05-18 00:02:17alambrismo-avanzadopng.png', 'WZRkLcyAbN0', 'PUBLISHED', '2023-05-17 05:15:13', '2023-05-18 04:02:19'),
+(4, 1, 'Filigrana', NULL, '350', 'En este taller aprenderás todo lo relacionado con esta parte importante de la joyería', NULL, '<p style=\"margin-left:0px;\">En este taller aprenderás todo lo relacionado con esta parte tan importante de la joyería como es la Filigrana, aprenderás desde cómo preparar la cinta doble trenzada y laminada que deja el borde dentado hasta como realizar el relleno, soldadura y sus acabados.</p><ul><li>3 clases</li><li>9 horas</li><li>2 proyectos</li></ul>', NULL, 'filigrana', 'filigrana', 0, '2023-05-18 00:03:45filigranapng.png', 'bDQp1aM9w3w', 'PUBLISHED', '2023-05-18 02:39:11', '2023-05-18 04:04:03'),
+(5, 1, 'Resina Coloreada', NULL, '350', 'Aprenderás a hacer calados y soldaduras para la confección de las joyas', NULL, '<p style=\"margin-left:0px;\">Aprenderás hacer calados y soldaduras para la confección de las joyas donde se aplicará la resina con color</p><ul><li>3 clases</li><li>9 horas</li></ul>', NULL, 'resinacoloreada', 'resina-coloreada', 1, '2023-05-22 10:32:0402jpg.jpg', NULL, 'PUBLISHED', '2023-05-18 04:06:34', '2023-05-22 17:32:05'),
+(6, 1, 'Resina y Madera', NULL, '240', 'Elabora hermosas piezas de orfebrería combinando madera y resina', NULL, '<p style=\"margin-left:0px;\">Elabora hermosas piezas de orfebrería combinando madera y resina coloreada</p><ul><li>2 clases, 4 horas c/u</li><li>8 horas, clase privada</li></ul>', NULL, 'resinamadera', 'resina-y-madera', 1, '2023-05-22 10:32:3108jpg.jpg', NULL, 'PUBLISHED', '2023-05-18 04:08:00', '2023-05-22 17:32:39'),
+(7, 1, 'Resina y Metal', NULL, '350', 'Aprenderás algo de soldadura y cómo se aplica la resina', NULL, '<p style=\"margin-left:0px;\">Aprenderás algo de soldadura y como se aplica la resina</p><ul><li>Clases: 3</li><li>Horas: 9</li></ul>', NULL, 'resinametal', 'resina-y-metal', 1, '2023-05-22 10:35:55resinametaljpg.jpg', NULL, 'PUBLISHED', '2023-05-18 04:09:13', '2023-05-22 17:35:57'),
+(8, 1, 'Resina por Inclusión', NULL, '220', 'Elaboraremos unas piezas usando dos tecnicas distintas, una con molde de silicona y otra en bastidor de metal', NULL, '<p style=\"margin-left:0px;\">Elaboraremos unas piezas usando por un lado un molde de silicona y otra en metal</p><ul><li>2 clases</li><li>6 horas</li></ul>', NULL, 'resinainclusion', 'resina-por-inclusion', 1, '2023-07-30 01:44:47300-x-300png.png', NULL, 'PUBLISHED', '2023-05-18 04:10:56', '2023-07-31 00:50:45'),
+(9, 1, 'Curso Remache con Engaste', NULL, '220', 'En este taller aprenderás la forma más rápida y segura para unir materiales sin necesidad de soldaduras ni pegamentos', NULL, '<p style=\"margin-left:0px;\">En este taller aprenderás la forma más rápida y segura para unir materiales sin necesidad de soldaduras ni pegamentos, solo utilizaras el remache también conocido como \"Soldadura en frio\", puedes unir metales como aluminio, oro, plata y acero, etc. junto con materiales como el cuero el vidrio, acrílico etc.<br>Es un formidable recurso a la hora de unir elementos que no se pueden soldar y muy seguro.</p><ul><li>2 clases</li><li>6 horas</li><li>2 proyectos</li></ul>', NULL, 'remacheengaste', 'curso-remache-con-engaste', 0, '2023-05-18 00:12:38remachespng.png', NULL, 'PUBLISHED', '2023-05-18 04:12:40', '2023-05-18 04:12:48'),
+(10, 1, 'Curso Bisabra y Broche Gaveta', NULL, '380', 'Articulaciones, micro mecanismos o bisagras, en este taller construiremos un brazalete con bisagra', NULL, '<p style=\"margin-left:0px;\">Articulaciones, micro mecanismo o bisagras, en este taller construiremos un brazalete con bisagra y broche de gaveta, fabricaremos la charnela o tubo y como se ajusta, remache y acabados</p><ul><li>3 clases de 3 horas c/u</li><li>12 horas</li><li>1 proyecto, brazalete</li></ul>', NULL, 'bisagragaveta', 'curso-bisagra-y-broche-gaveta', 0, '2023-05-18 00:14:25bisagrabrochepng.png', NULL, 'PUBLISHED', '2023-05-18 04:14:34', '2023-05-18 04:15:24'),
+(11, 1, 'Curso de Joyería Textil', NULL, '250', 'Usando la técnica de telar y utilizando hilos finos de metal podemos crear este tipo de malla sólida', NULL, '<p style=\"margin-left:0px;\">Usando la técnica del telar y utilizando hilos finos de metal podemos crear este tipo de malla solida muy usada en el alambrismo</p><ul><li>2 clases de 4 horas c/u</li><li>8 horas</li><li>1 proyecto, brazalete</li></ul>', NULL, 'joyeriatextil', 'curso-de-joyeria-textil', 0, '2023-05-18 00:17:02joyeria-textilpng.png', NULL, 'PUBLISHED', '2023-05-18 04:17:05', '2023-05-18 04:17:13'),
+(12, 1, 'Crayon Art', NULL, '350', 'Usaremos creyones para elaborar junto con la resina piezas de joyería', NULL, '<p style=\"margin-left:0px;\">Usaremos creyones para elaborar junto con la resina piezas de joyería</p><ul><li>3 clases</li><li>9 horas</li></ul>', NULL, 'crayonart', 'crayon-art', 0, '2023-05-18 00:18:16crayonartjpg.jpg', NULL, 'PUBLISHED', '2023-05-18 04:18:18', '2023-05-18 04:18:25'),
+(13, 1, 'Curso Engaste de piedras facetadas en caja', NULL, '380', 'En este Taller realizaremos un Anillo con engaste de caja para una piedra facetada octogonal, trabajo de mucha precision con ayuda del motor colgante y fresas, este engaste tambien es conocido como falso engaste, es cuestion de practicar', NULL, '<p style=\"margin-left:0px;\">Usando la técnica del telar y utilizando hilos finos de metal podemos crear este tipo de malla solida muy usada en el alambrismo</p><ul><li>3 clases de 3 horas c/u</li><li>12 horas</li><li>1 proyecto</li></ul>', NULL, 'piedrasfacetada', 'curso-engaste-de-piedras-facetadas-en-caja', 0, '2023-09-10 17:15:21diseno-sin-titulo-10300-x-300png.png', NULL, 'PUBLISHED', '2023-05-18 04:20:16', '2023-09-11 00:15:25'),
+(14, 1, 'Curso Anillo de Piedra reconstituido en base metal', NULL, '380', 'Anillo de piedra reconstituida, sobre un anillo tipo Bulgari', NULL, '<p style=\"margin-left:0px;\">ANILLO DE PIEDRA RECONSTITUIDA, sobre un anillo tipo Bulgari reconstituiremos la superficie con piedra molida como: Malaquita, Turquesa y Lapislázuli.<br>El curso está dividido en una parte de orfebrería y la otra el molido de la piedra y forma de aplicarlo y sus acabados</p><ul><li>3 clases de 3 horas c/u</li><li>9 horas</li><li>1 proyecto</li></ul>', NULL, 'anillopiedrareconst', 'curso-anillo-de-piedra-reconstituido-en-base-metal', 0, '2023-05-18 00:22:10anillopriedrapng.png', NULL, 'PUBLISHED', '2023-05-18 04:22:11', '2023-05-18 04:22:19'),
+(15, 1, 'Curso de Reconstituido', NULL, '380', 'Para aprender a realizar este tipo de anillo con piedra molidas primero realizaremos el contenedor donde aprenderás...', NULL, '<p style=\"margin-left:0px;\">Para aprender a realizar este tipo de anillo con piedras molidas primero realizaremos el contenedor donde aprenderás técnicas de joyería y podemos hacer como proyecto un anillo o dije.</p><ul><li>3 clases</li><li>9 horas</li><li>1 proyecto</li></ul>', NULL, 'reconstituido', 'curso-de-reconstituido', 0, '2023-05-18 00:36:12reconstituidopng.png', NULL, 'PUBLISHED', '2023-05-18 04:36:14', '2023-05-18 04:36:22'),
+(16, 1, 'Curso Anillo de Volumen', NULL, '380', 'Realizaremos un anillo de sello y entraremos en el tema de la joyería', NULL, '<p style=\"margin-left:0px;\">Realizaremos un anillo de sello y entraremos en el tema de la joyería Hueca y volumetrica</p><ul><li>3 clases</li><li>9 horas</li><li>1 proyecto</li></ul>', NULL, 'anillovolumen', 'curso-anillo-de-volumen', 0, '2023-05-18 00:37:31anillovolumenpng.png', NULL, 'PUBLISHED', '2023-05-18 04:37:33', '2023-05-18 04:37:41'),
+(17, 1, 'Curso Anillo Comprimido', NULL, '380', 'Un modelo de técnica avanzada, el alumno debe de tener dominio de la soldadura y uso de soplete aprenderemos como se crea este tipo de efecto', NULL, '<p style=\"margin-left:0px;\">Es un modelo de técnica avanzada, el alumno debe de tener dominio de la soldadura y uso de soplete aprenderemos como se crea este tipo de efecto haciendo un tipo de comprimido mecánico sobre el metal.</p><ul><li>3 clases de 3 horas c/u</li><li>9 horas</li><li>1 proyecto</li></ul>', NULL, 'anillocomprimido', 'curso-anillo-comprimido', 0, '2023-05-18 00:38:53anillocomprimidopng.png', NULL, 'PUBLISHED', '2023-05-18 04:38:55', '2023-05-18 04:39:03'),
+(18, 1, 'Curso de Anillo Plegado', NULL, '240', 'un hermoso modelo de con sencilla técnica muy especial por sus dimensiones y curvas que le da al diseño a pesar...', NULL, '<p style=\"margin-left:0px;\">Es un hermoso modelo de con sencilla técnica muy especial por sus dimensiones y curvas que le da al diseño a pesar de que es realizado con hilo y lamina.</p><ul><li>2 clases de 3 horas c/u</li><li>6 horas</li><li>1 proyecto</li></ul>', NULL, 'anilloplegado', 'curso-anillo-plegado', 0, '2023-05-18 00:43:39anilloplegadopng.png', NULL, 'PUBLISHED', '2023-05-18 04:43:42', '2023-05-18 04:43:49'),
+(19, 1, 'Curso de Anillo con Engaste 6 uñas', NULL, '280', 'Anillo con montura de 6 uñas, adiestramiento en soldadura, el alumno debe de tener conocimientos básicos del oficio', NULL, '<p style=\"margin-left:0px;\">Elaboración de un anillo con montura de 6 uñas, adiestramiento en soldadura, el alumno debe de tener conocimientos básicos del oficio.</p><p style=\"margin-left:0px;\">Clases: 3</p><p style=\"margin-left:0px;\">Horas: 9</p><p style=\"margin-left:0px;\">Numero de Proyectos:</p><ul><li>1 anillo</li></ul>', NULL, 'anillo6', 'curso-de-anillo-con-engaste-6-unas', 0, '2023-05-18 00:45:41engastedeunaspng.png', NULL, 'PUBLISHED', '2023-05-18 04:45:43', '2023-05-18 04:57:49'),
+(20, 1, 'Alambrismo Básico', NULL, '280', 'En este taller aprenderás el correcto uso del Alicate y el tratamiento del Alambre, se realizarán unos proyectos de entrenamiento como pulsera, anillo...', NULL, '<p style=\"margin-left:0px;\">En este taller aprenderás el correcto uso del Alicate y el tratamiento del Alambre, se realizarán unos proyectos de entrenamiento como pulsera, anillo y zarcillos</p><ul><li>Clases: 2</li><li>proyectos: 8</li></ul>', NULL, 'alambrismobasico', 'alambrismo-basico', 0, '2023-05-18 01:00:29alambrismobasicopng.png', 'oKJgmWeRKoo', 'PUBLISHED', '2023-05-18 05:00:46', '2023-05-18 05:00:54'),
+(21, 1, 'Curso de elaboración de molde con masa epoxica', NULL, '180', 'Es un hermoso modelo de con sencilla técnica muy especial por sus dimensiones y curvas que le da al diseño a pesar...', NULL, '<p style=\"margin-left:0px;\">Es un hermoso modelo de con sencilla técnica muy especial por sus dimensiones y curvas que le da al diseño a pesar de que es realizado con hilo y lamina.</p><ul><li>1 clases</li><li>4 horas</li><li>1 proyecto</li></ul>', NULL, 'moldeepoxica', 'curso-de-elaboracion-de-molde-con-masa-epoxica', 0, '2023-05-18 01:02:43moldeepoxicapng.png', NULL, 'PUBLISHED', '2023-05-18 05:02:45', '2023-05-18 05:02:52'),
+(22, 1, 'Curso de Grabado al acido y remaches', NULL, '220', 'El grabado en el metal es como dibujar sobre el metal, para eso usamos ciertas sustancias las cuales te enseñaremos a usar para que puedas hacer tus diseños', NULL, '<p style=\"margin-left:0px;\">El grabado en el metal es como dibujar sobre el metal, para eso usamos ciertas sustancias las cuales te enseñaremos a usar para que puedas hacer tus diseños como dar texturas o imprimir formas en el metal y trabajaremos con 2 tipos de materiales como bronce y cobre con remaches</p><ul><li>2 clases</li><li>6 horas</li><li>1 pulsera como proyecto</li></ul>', NULL, 'gabadoacidoremaches', 'curso-de-grabado-al-acido-y-remaches', 0, '2023-05-18 01:04:28grabadoalacidoyremachespng.png', NULL, 'PUBLISHED', '2023-05-18 05:04:31', '2023-05-18 05:04:39'),
+(23, 1, 'Curso de Anillo Embutido y Galloneado', NULL, '120', 'Este es un anillo muy clásico en la joyería que puede también ser decorado con galloneados', NULL, '<p style=\"margin-left:0px;\">Este es un anillo muy clásico en la joyería que puede también ser decorado con galloneados y engastes de pave, embutimos en el dado para curvear el anillo</p><ul><li>1 clases</li><li>4 horas</li><li>1 proyecto</li></ul>', NULL, 'anillogalloneado', 'curso-de-anillo-embutido-y-galloneado', 0, '2023-08-19 20:43:47anillo-galloneado-300-x-300jpg.jpg', NULL, 'PUBLISHED', '2023-05-18 05:05:48', '2023-08-20 03:44:55'),
+(24, 1, 'Curso de Anillo varios aros enlazados', NULL, '220', 'También conocido como Anillo Cartier , este anillo es el que tradicionalmente se usaba en Rusia como anillo de matrimonio también llamado Anillo de los Zares', NULL, '<p style=\"margin-left:0px;\">También conocido como Anillo Cartier , este anillo es el que tradicionalmente se usaba en Rusia como anillo de matrimonio también llamado Anillo de los Zares.</p><ul><li>2 clases</li><li>4 horas</li><li>1 proyecto</li></ul>', NULL, 'anilloenlzado', 'curso-de-anillo-varios-aros-enlazados', 0, '2023-05-18 01:07:28anillovariosarospng.png', NULL, 'PUBLISHED', '2023-05-18 05:07:30', '2023-05-18 05:07:37'),
+(25, 1, 'Curso de Calado', NULL, '120', 'Esta es la técnica mas básica del oficio con la que puedes realizar maravillosas joyas en los materiales que desees además del metal con esta técnica...', NULL, '<p style=\"margin-left:0px;\">Esta es la técnica mas básica del oficio con la que puedes realizar maravillosas joyas en los materiales que desees además del metal con esta técnica y el uso del arco de sequeta puedes usarlo también en acrílico, madera entre otros</p><ul><li>1 clases</li><li>4 horas</li><li>1 proyecto</li></ul>', NULL, 'calado', 'curso-de-calado', 0, '2023-05-18 01:08:50caladopng.png', NULL, 'PUBLISHED', '2023-05-18 05:08:51', '2023-05-18 05:08:58'),
+(26, 1, 'Curso de Flor Repujada', NULL, '220', 'Aprenderás a calar o cortar el metal con el arco de segueta el recocido del metal, el embutido y coplado para conformar la flor', NULL, '<p style=\"margin-left:0px;\">Aprenderás a calar o cortar el metal con el arco de segueta el recocido del metal, el embutido y coplado para conformar la flor</p><ul><li>3 clases</li><li>9 horas</li><li>1 proyecto</li></ul>', NULL, 'florrepujada', 'curso-de-flor-repujada', 0, '2023-05-18 01:10:14florrepujadapng.png', NULL, 'PUBLISHED', '2023-05-18 05:10:16', '2023-05-18 05:10:22'),
+(27, 1, 'Curso de Anillo Encamisado', NULL, '320', 'Si ya te has propuesto hacer un anillo con las complicaciones de este es porque ya manejas muy bien la soldadura...', NULL, '<p style=\"margin-left:0px;\">Si ya te has propuesto hacer un anillo con las complicaciones de este es porque ya manejas muy bien la soldadura y tienes destreza en el uso de las herramientas para dar forma y ajustar partes, es un anillo clásico con muchas variaciones</p><ul><li>3 clases</li><li>9 horas</li><li>1 proyecto</li></ul>', NULL, 'anilloencamisado', 'curso-de-anillo-encamisado', 0, '2023-05-18 01:11:09anilloencamisadopng.png', NULL, 'PUBLISHED', '2023-05-18 05:11:11', '2023-05-18 05:11:19'),
+(28, 1, 'Curso de Grabado al Acido', NULL, '180', 'El grabado en el metal es como pintar en él para eso usamos ciertas sustancias las cuales te enseñaremos a usar para que puedas...', NULL, '<p style=\"margin-left:0px;\">El grabado en el metal es como pintar en él para eso usamos ciertas sustancias las cuales te enseñaremos a usar para que puedas hacer tus diseños, como dar texturas o imprimir formas en el metal</p><p style=\"margin-left:0px;\">Clases: 1</p><p style=\"margin-left:0px;\">Horas: 4</p><p style=\"margin-left:0px;\">Numero de Proyectos:</p><ul><li>brazalete</li></ul>', NULL, 'grabadoacido', 'curso-de-grabado-al-acido', 0, '2023-05-18 01:12:19grabadoalacidopng.png', NULL, 'PUBLISHED', '2023-05-18 05:12:21', '2023-08-06 01:47:50'),
+(29, 1, 'Curso de Engaste de Caja Cabujon', NULL, '220', 'Trabajaremos en La elaboración de una caja para piedra cabujón, es considerado el engaste de mayor seguridad...', NULL, '<p style=\"margin-left:0px;\">Trabajaremos en La elaboración de una caja para piedra cabujón, es considerado el engaste de mayor seguridad, funciona para piedras cabujón o formas irregulares en este taller realizaremos un anillo y un dije.</p><ul><li>1 clases</li><li>6 horas</li><li>1 proyecto</li></ul>', NULL, 'engastecajacabujon', 'curso-de-engaste-caja-cabujon', 0, '2023-05-18 01:14:23engastecajacabujonpng.png', NULL, 'PUBLISHED', '2023-05-18 05:14:32', '2023-05-18 05:14:39'),
+(30, 1, 'Curso de Engaste de 4 Uñas', NULL, '380', 'Se realizara un anillo con engaste de 4 uñas para piedra facetada preferiblemente redonda u ovalada, el participante debe...', NULL, '<p style=\"margin-left:0px;\">Se realizara un anillo con engaste de 4 uñas para piedra facetada preferiblemente redonda u ovalada, el participante debe de tener dominio del soplete y soldadura</p><ul><li>3 clases de 3 horas cada uno</li><li>9 horas</li><li>1 proyecto</li></ul>', NULL, 'engaste4unas', 'curso-de-engaste-de-4-unas', 0, '2023-05-18 01:16:12engaste4png.png', NULL, 'PUBLISHED', '2023-05-18 05:16:14', '2023-05-18 05:16:20'),
+(31, 1, 'Curso de Anillo Bulgari', NULL, '220', 'Este anillo consta de 3 partes las cuales son: los aros de los bordes realizados en hilo cuadrado y una banda central el taller...', NULL, '<p style=\"margin-left:0px;\">Este anillo consta de 3 partes las cuales son: los aros de los bordes realizados en hilo cuadrado y una banda central el taller consiste en preparar con medidas exactas estas 3 piezas para posteriormente ser ensambladas y soldadas obteniendo este hermoso modelo</p><ul><li>2 clases</li><li>6 horas</li><li>1 proyecto</li></ul>', NULL, 'anillobulgari', 'curso-de-anillo-bulgari', 0, '2023-05-18 01:17:18anillobulgaripng.png', NULL, 'PUBLISHED', '2023-05-18 05:17:20', '2023-05-18 05:17:26'),
+(32, 1, 'Curso Modelado en Cera', NULL, '220', 'Se  realizara un anillo Bombe con la técnica del modelado en cera realizando la talla y escavado de la cera usando para ello limas...', NULL, '<p style=\"margin-left:0px;\">Se realizara un anillo Bombe con la técnica del modelado en cera realizando la talla y escavado de la cera usando para ello limas y fresas hasta lograr el modelo con los diámetros o espesor de la pieza en la medida correcta realizándole los acabados correspondientes dejándolo listo para el proceso de fundición obteniendo como resultado la misma pieza en el material deseado sea oro o plata</p><ul><li>2 clases</li><li>6 horas</li><li>1 proyecto</li></ul>', NULL, 'modeladocera', 'curso-de-modelado-en-cera', 0, '2023-05-18 01:18:27modeladocerapng.png', NULL, 'PUBLISHED', '2023-05-18 05:18:29', '2023-05-18 05:18:35'),
+(33, 1, 'Curso Anillo con Engaste 2 Uñas', NULL, '260', 'Este es un hermoso modelo de anillo con un engaste con solo 2 uñas es ideal para piedras redondas, el participante debe de tener dominio del soplete', NULL, '<p style=\"margin-left:0px;\">Este es un hermoso modelo de anillo con un engaste con solo 2 uñas es ideal para piedras redondas, el participante debe de tener dominio del soplete y la soldadura.</p><ul><li>2 clases de 3 horas c/u</li><li>6 horas</li><li>1 proyecto</li></ul>', NULL, 'engaste2unas', 'curso-anillo-con-engaste-2-unas', 0, '2023-05-18 01:19:38encaste2png.png', NULL, 'PUBLISHED', '2023-05-18 05:19:40', '2023-05-18 05:19:47'),
+(34, 1, 'Curso de Anillo Embutido y Forjado', NULL, '260', 'Este anillo es de técnica avanzada ya que debemos de tener un dominio de martillo para el repujado y embutido...', NULL, '<p style=\"margin-left:0px;\">Este anillo es de técnica avanzada ya que debemos de tener un dominio de martillo para el repujado y embutido, utilizaremos el dado de embutir como herramienta de apoyo y le daremos volumen deseado al anillo.</p><ul><li>2 clases de 3 horas c/u</li><li>6 horas</li><li>1 proyecto</li></ul>', NULL, 'anilloembutidoforjado', 'curso-de-anillo-embutido-y-forjado', 0, '2023-05-18 01:21:09anilloforjadopng.png', NULL, 'PUBLISHED', '2023-05-18 05:21:11', '2023-05-18 05:21:20'),
+(35, 1, 'Metal Clay I', NULL, '360', 'En este taller trabajaremos el material de metal clay que como su nombre lo indica es arcilla y así la trabajaremos, como arcilla, por decirlo así \"modelaremos una joya\"...', NULL, '<p style=\"margin-left:0px;\">En este taller trabajaremos el material de metal clay que como su nombre lo indica es arcilla y así la trabajaremos, como arcilla, por decirlo así \"modelaremos una joya\", como una masa flexible, trabajaremos piezas sencillas estampado y texturas como las de una hoja del jardín o una de las tantas placas de texturas que se consiguen en el mercado, otra cosa importante es trabajar las uniones</p><ul><li>3 clases de 3 horas c/u</li><li>9 horas</li><li>1 proyecto</li><li>no incluye el material, el precio varia por ser metal precioso</li></ul>', NULL, 'metalclayI', 'metal-clay-1', 0, '2023-09-03 19:45:51metal-clay-300-x-300png.png', NULL, 'PUBLISHED', '2023-05-18 05:22:16', '2023-09-04 02:45:54'),
+(36, 1, 'Metal Clay 2', NULL, '320', 'En este nivel II nos pondremos como meta la creación de una pieza más compleja en su elaboración que debe contemplar muchos elementos...', NULL, '<p style=\"margin-left:0px;\">En este nivel II nos pondremos como meta la creación de una pieza más compleja en su elaboración que debe contemplar muchos elementos a unir</p><ul><li>3 clases de 3 horas c/u</li><li>9 horas</li><li>1 proyecto</li></ul>', NULL, 'metalclay2', 'metal-clay-2', 0, '2023-05-18 01:23:10metalclay2png.png', NULL, 'PUBLISHED', '2023-05-18 05:23:12', '2023-05-18 05:23:19'),
+(37, 1, 'Curso de Cadena Cubana', NULL, '360', 'Realizaremos una pulsera empezando por preparar nuestra soldadura y el hilo que necesitamos para realizarlo, el entorchado..', NULL, '<p style=\"margin-left:0px;\">Realizaremos una pulsera empezando por preparar nuestra soldadura y el hilo que necesitamos para realizarlo, el entorchado, el calado de eslabón y el armado y soldadura de la cadena, estirado y pulido, llevara un broche sencillo</p><ul><li>3 clases de 3 horas c/u</li><li>9 horas</li><li>1 proyecto</li></ul>', NULL, 'cadenacubana', 'curso-de-cadena-cubana', 0, '2023-05-22 12:10:48cadenacubanapng.png', NULL, 'PUBLISHED', '2023-05-18 05:24:20', '2023-05-22 19:10:51'),
+(38, 1, 'Curso de Engastes Artesanales', NULL, '380', 'Son muchas las maneras de engastar piedras de forma artesanal usando muchas veces solo el arco de segueta', NULL, '<p style=\"margin-left:0px;\">Son muchas las maneras de engastar piedras de forma artesanal usando muchas veces solo el arco de segueta y en otros casos soldaduras sencillas, realizaremos 3 diferentes engastes</p><ul><li>3 clases de 3 horas cada uno</li><li>9 horas</li><li>3 proyecto</li></ul>', NULL, 'engasteartesanal', 'curso-de-engastes-artesanales', 0, '2023-05-18 01:27:12engastesartesanalespng.png', NULL, 'PUBLISHED', '2023-05-18 05:27:13', '2023-05-18 05:27:20'),
+(39, 1, 'Curso de Reconstituido en Lamina', NULL, '380', 'Es la forma clásica de hacer un reconstituido sobre lamina, buscando un acabado liso y brillante, para ello', NULL, '<p style=\"margin-left:0px;\">Esta es la forma clásica de hacer un reconstituido sobre lamina, buscando un acabado liso y brillante, para ello debemos de calar y soldar dos laminas donde queden los espacios que rellenaremos con piedras molidas</p><ul><li>3 clases de 3 horas cada uno</li><li>9 horas</li><li>1 proyecto</li></ul>', NULL, 'reconstituidolamina', 'curso-de-reconstituido-en-lamina', 0, '2023-05-18 01:28:17reconstituidolaminapng.png', NULL, 'PUBLISHED', '2023-05-18 05:28:19', '2023-05-18 05:28:25'),
+(40, 1, 'Curso de Calado, Textura y Soldadura (Paquete)', NULL, '180', 'Es un curso intensivo de calado con conocimientos básicos del soplete soldadura, texturas martilladas y embutidos.', NULL, '<p style=\"margin-left:0px;\">Este es un curso intensivo de calado con conocimientos básicos del soplete soldadura, texturas martilladas y embutidos. En solo una clase aprenderás estas importantes técnicas de la joyería y te llevaras un par de zarcillos embutidos y un anillo de plantilla realizados por ti</p><ul><li>1 clases</li><li>4 horas</li><li>2 proyecto</li></ul>', NULL, 'caladotexturasoldadura', 'curso-de-calado-textura-y-soldadura-paquete', 0, '2023-08-20 19:32:49300-x-300jpg.jpg', NULL, 'PUBLISHED', '2023-05-18 05:29:48', '2023-08-21 02:33:06'),
+(41, 1, 'Curso de Anillo Reconstituido sin Base, Solido', NULL, '220', 'Realizaremos un anillo 100% reconstituido sin necesidad de base compactaremos la molienda de piedra y daremos forma...', NULL, '<p style=\"margin-left:0px;\">Realizaremos un anillo 100% reconstituido sin necesidad de base compactaremos la molienda de piedra y daremos forma al anillo</p><ul><li>2 clases</li><li>6 horas</li><li>4 proyecto</li></ul>', NULL, 'anillosinbase', 'curso-de-anillo-reconstituido-sin-base-solido', 0, '2023-05-18 01:31:32anilloreconstituidopng.png', NULL, 'PUBLISHED', '2023-05-18 05:31:36', '2023-05-18 05:31:43'),
+(42, 1, 'Curso de Anillo de Madera Reconstituida y Base de Plata', NULL, '380', 'Utilizando chapilla ( laminas) haremos este aro solido en madera con un método que te enseñaremos el cual será montado...', NULL, '<p style=\"margin-left:0px;\">Utilizando chapilla ( laminas) haremos este aro solido en madera con un método que te enseñaremos el cual será montado en un anillo de plata con la técnica de encapsulado</p><ul><li>3 clases</li><li>9 horas</li><li>1 proyecto</li></ul>', NULL, 'anillomadera', 'curso-de-anillo-de-madera-reconstituida-y-base-de-plata', 0, '2023-05-18 01:33:08anillomaderapng.png', NULL, 'PUBLISHED', '2023-05-18 05:33:28', '2023-05-18 05:33:37'),
+(43, 1, 'Curso Básico de Orfebrería', NULL, '480', 'Paquete de proyectos en un solo taller esta especialmente diseñado para quieres quieren una formación rápida e intensiva, es una manera de empezar aunque es mucha la información contenida', NULL, '<p style=\"margin-left:0px;\">Este paquete de proyectos en un solo taller esta especialmente diseñado para quieres quieren una formación rápida e intensiva, es una manera de empezar aunque es mucha la información contenida ya que en 4 proyectos aprenderás todas las técnicas básicas incluso engaste de cabujón que ya es avanzado, y después puedes continuar con el orden del curso de capacitación curricular<br>Proyectos a Realizar:</p><ul><li>anillo de plantilla</li><li>zarcillos embutidos con texturas con ganchos</li><li>anillo embutido</li><li>anillo con piedra cabujón en engaste de caja</li><li>4 clase clase</li><li>12 horas</li><li>4 proyecto</li></ul>', NULL, 'basicoorfebreria', 'curso-basico-de-orfebreria', 1, '2023-05-22 10:37:17basicoorfebreriajpg.jpg', 'WZRkLcyAbN0', 'PUBLISHED', '2023-05-18 05:35:17', '2023-05-22 17:37:20'),
+(44, 1, 'Cadenas Armadas y Abiertas (sin soldadura)', NULL, '120', 'Son muchas las cadenas para trabajar es todo un mundo...', NULL, '<p style=\"margin-left:0px;\">Son muchas las cadenas para trabajar es todo un mundo, las más usadas son :</p><ul><li>La Bizantina</li><li>Cola de pescado</li><li>La Redonda</li></ul><p style=\"margin-left:0px;\">cada cadena toma una clase la puedes tomar en el orden que desees</p><ul><li>1 clases</li><li>3 horas</li><li>1 proyecto</li></ul>', NULL, 'cadenaarmada', 'cadenas-armadas-y-abiertas-sin-soldadura', 0, '2023-05-18 01:36:40cadenaarmadapng.png', NULL, 'PUBLISHED', '2023-05-18 05:36:41', '2023-05-18 05:36:48'),
+(45, 1, 'Curso de Elaboración de Moldes de Silicona', NULL, '220', 'Técnica es ideal para reproducir piezas, puede ser usado para verter en ellos cera derretida para procesos de fundición o también resinas', NULL, '<p style=\"margin-left:0px;\">Esta técnica es ideal para reproducir piezas, puede ser usado para verter en ellos cera derretida para procesos de fundición o también resinas, tiene muchas utilidades, por ejemplo en el Metal clay se usan texturas en planchas hechas de silicona</p><ul><li>2 clases</li><li>6 horas</li><li>1 proyecto</li></ul>', NULL, 'moldesiliconaa', 'curso-de-elaboracion-de-moldes-de-silicona', 0, '2023-05-18 01:38:02moldesiliconapng.png', NULL, 'PUBLISHED', '2023-05-18 05:38:04', '2023-05-18 05:38:10'),
+(46, 1, 'Curso de Cordón Tejido', NULL, '120', 'Este cordón resulta una fina solución cuando estamos realizando un dije y necesitamos una cadena para colgarlo o necesitamos una forma', NULL, '<p style=\"margin-left:0px;\">Este cordón resulta una fina solución cuando estamos realizando un dije y necesitamos una cadena para colgarlo o necesitamos una forma para completar una pulsera etc. es de muy fácil elaboración y es muy entretenido</p><ul><li>1 clases</li><li>3 horas</li><li>1 proyecto</li></ul>', NULL, 'cordontejido', 'curso-de-cordon-tejido', 0, '2023-05-18 01:39:12cordontejidopng.png', NULL, 'PUBLISHED', '2023-05-18 05:39:14', '2023-05-18 05:39:35'),
+(47, 1, 'Curso de Escapulario con imagen en resina', NULL, '220', 'Realizaremos una pieza que consistirá en 2 etapas la primera es realizar la pieza en resina con la inclusión de una imagen', NULL, '<p style=\"margin-left:0px;\">Realizaremos una pieza que consistirá en 2 etapas la primera es realizar la pieza en resina con la inclusión de una imagen y como segunda parte es preparara la armazón en metal se realizara un diseño calado con textura y usaremos la técnica del remache para unir</p><ul><li>2 clases</li><li>6 horas</li><li>1 proyecto</li></ul>', NULL, 'escapularioresina', 'curso-de-escapulario-con-imagen-en-resina', 0, '2023-05-18 01:40:35escapulatoriopng.png', NULL, 'PUBLISHED', '2023-05-18 05:40:37', '2023-05-18 05:40:43'),
+(48, 1, 'Elaboración de cajas con la ayuda de: Lamina fina, una moneda y el dado de embutir', NULL, '220', 'Esta es una técnica de la vieja escuela, es como la introducción al troquel, es muy rápido de hacer, los contenedores', NULL, '<p style=\"margin-left:0px;\">Esta es una técnica de la vieja escuela, es como la introducción al troquel, es muy rápido de hacer, los contenedores normalmente los usos para resina o reconstituido.</p><ul><li>2 clase clase</li><li>6 horas</li><li>1 proyecto</li></ul>', NULL, 'cajalaminafina', 'elaboracion-de-cajas-con-la-ayuda-de-lamina-fina-una-moneda-y-el-dado-de-embutir', 0, '2023-05-18 02:22:02elabcajaspng.png', NULL, 'PUBLISHED', '2023-05-18 06:22:04', '2023-05-18 06:22:12'),
+(49, 1, 'Curso de Cadena China', NULL, '400', 'La Cadena China tiene una forma muy especial en su construcción y su técnica de ensamblaje, es muy elaborada pero de una gran hermosura para el diseño de joyas...', NULL, '<p style=\"margin-left:0px;\">La Cadena China tiene una forma muy especial en su construcción y su técnica de ensamblaje, es muy elaborada pero de una gran hermosura para el diseño de joyas, en este curso aprenderás a fundir y preparar tu hilo de plata, medidas y cálculos de la cadena para su confección y sus diferentes acabados.<br>Incluye materiales</p><ul><li>4 clases</li><li>12 horas</li><li>1 pulsera como proyecto</li></ul>', NULL, 'cadenachina', 'curso-de-cadena-china', 1, '2023-05-22 10:38:26cadenachinapng.png', NULL, 'PUBLISHED', '2023-05-18 06:23:19', '2023-05-22 17:38:28'),
+(50, 1, 'Curso de Diseño 3D', NULL, '960', 'Los tiempos han cambiado hace unos años un joyero para crear una joya con múltiples engastes de piedras en las formas más complicadas le podía llevar semanas de trabajo...', NULL, '<p style=\"margin-left:0px;\">Los tiempos han cambiado hace unos años un joyero para crear una joya con múltiples engastes de piedras en las formas más complicadas le podía llevar semanas de trabajo, ahora con este método de diseño 3D puedes desde tu computador realizar la joya más majestuosa que desees, esta se imprime después en impresora 3D en cera para pasar posteriormente al casting o fundición en el material deseado</p><ul><li>8 clases de 2 horas cada una</li><li>16 horas</li><li>varios proyecto</li></ul>', NULL, 'diseno3d', 'curson-de-diseno-3d', 1, '2023-05-22 10:38:51diseno3dpng.png', NULL, 'PUBLISHED', '2023-05-18 06:24:35', '2023-05-22 17:38:54'),
+(51, 1, 'Curso de baños Electrolíticos en Oro, Plata, Cobre, Niquel, Rodio', NULL, '160', 'En este taller aprenderás cómo se realiza un enchapado o baño electrolítico usando un regulador de voltaje y sales de metales como oro, plata...', NULL, '<p style=\"margin-left:0px;\">En este taller aprenderás cómo se realiza un enchapado o baño electrolítico usando un regulador de voltaje y sales de metales como oro, plata, etc.&nbsp;</p><p style=\"margin-left:0px;\">Aprenderás sobre la limpieza de la pieza, como debe estar su acabado según lo deseado y los cuidados que debemos que tener al momento de realizar esta tarea.</p><ul><li>1 clase</li><li>4 horas</li></ul>', NULL, 'banoelectrolitico', 'curso-de-banos-electroliticos-en-oro-plata-cobre-niquel-rodio', 1, '2023-05-22 10:39:36electrolitospng.png', NULL, 'PUBLISHED', '2023-05-18 06:33:54', '2023-05-22 17:39:39'),
+(52, 1, 'Curso Certificado en \"Asistente de Joyero Calificado\"', NULL, '10800', 'Este taller es una capacitación intensiva, con un perfil para \"Asistente de joyero\", formado para cumplir las diversas tareas que se realizan en un taller productivo o de servicios,', NULL, '<p style=\"margin-left:0px;\">Este taller es una capacitación intensiva, con un perfil para \"Asistente de joyero\", formado para cumplir las diversas tareas que se realizan en un taller productivo o de servicios, iniciamos el taller con la fundición de metal en crisol con soplete oxi-gas para realizar láminas e hilos y se continúa con un programa de clases dividido en tres niveles.</p><ul><li>120 clases, de 3 horas cada una</li><li>360 horas</li><li>3 niveles</li><li>3 horas diarias</li></ul>', NULL, 'joyerocalificado', 'curso-certificado-en-asistente-de-joyero-calificado', 1, '2023-05-22 10:40:19asistentejoyeropng.png', NULL, 'PUBLISHED', '2023-05-18 06:42:51', '2023-05-22 17:40:22'),
+(53, 1, 'Curso de Anillo Antiestress', NULL, '120', 'Este es un modelo de anillo con mucho movimientos ya que todos los aros internos se moverán libremente, los bordes los expandimos...', NULL, '<p style=\"margin-left:0px;\">Este es un modelo de anillo con mucho movimientos ya que todos los aros internos se moverán libremente, los bordes los expandimos con un embutidor y no se saldrán nunca<br>incluye materiales</p><ul><li>clases: 1</li><li>horas: 6</li><li>proyecto: 1</li></ul>', NULL, 'anilloantiestress', 'curso-de-anillo-antiestress', 0, '2023-08-19 21:22:26diseno-sin-titulo-4jpg.jpg', NULL, 'PUBLISHED', '2023-05-18 06:44:17', '2023-08-20 04:22:39'),
+(54, 1, 'Curso de Casting', NULL, '350', 'Aprende a reproducir piezas bajo esta forma también llamada cera perdida, aprenderás a realizar todo el proceso de fundición desde el momento...', NULL, '<p style=\"margin-left:0px;\">Aprende a reproducir piezas bajo esta forma también llamada cera perdida, aprenderás a realizar todo el proceso de fundición desde el momento de hacer el árbol de ceras hasta el momento de echar la colada en el molde</p><ul><li>3 clases, de 3 horas cada una</li><li>9 horas</li></ul>', NULL, 'casting', 'curso-de-casting', 1, '2023-05-22 10:40:45castingpng.png', NULL, 'PUBLISHED', '2023-05-18 06:45:19', '2023-05-31 19:39:31'),
+(55, 1, 'Anillos de Matrimonio', NULL, '300', 'curso anillo de novios, Un Taller especial donde los novios realizan su anillo de matrimonio', NULL, '<p>Un Taller especial donde los novios realizan su anillo de matrimonio.</p><p>El taller tiene una duración de 4 horas, aprenderás a soldar y realizar estos hermosos anillos en hilo plano o media caña,</p><p>Quedarán Felices!</p><p>haz tu cita!</p>', NULL, 'anillosdematrimonio', 'anillos-de-matrimonio', 1, '2023-08-03 21:03:20curso-noviosjpg.jpg', 'WZRkLcyAbN0', 'PUBLISHED', '2023-08-04 03:58:33', '2023-08-06 03:06:19'),
+(57, 5, 'Eventos Especiales para Grupos', NULL, '90', 'Eventos especiales para grupos! \nRecibimos hasta 6 personas,   el fin de este Taller es aprender mientras te diviertes, aprenderan tecnicas de la orfebreria usando metales, resina, madera, esmalte o lo que mas le guste, realizaran una hermosa pieza de joyeria, objeto o escultura  mientras disfrutas y compartes con amigos...el precio es por persona, haz tu cita', NULL, '<p>Eventos especiales para grupos!&nbsp;<br>Recibimos hasta 6 personas, &nbsp; el fin de este Taller es aprender mientras te diviertes, aprenderan tecnicas de la orfebreria usando metales, resina, madera, esmalte o lo que mas le guste, realizaran una hermosa pieza de joyeria, objeto o escultura &nbsp;mientras disfrutas y compartes con amigos...haz tu cita</p>', NULL, 'eventosespecialesparagrupos', 'Cursos-especiales-para-grupos', 1, '2023-08-12 18:58:20foto-agrandanda-cuerso-grupospng.png', NULL, 'PUBLISHED', '2023-08-06 01:42:32', '2023-08-13 01:58:25'),
+(58, 5, 'ANILLO DE PLATA CON RECONSTITUIDO EN PIEDRA', NULL, '320', 'En este video documente el proceso de como seria el paso a paso del curso para elaborar un Anillo en Banda con Reconstituido, si deseas tomar este curso online o en físico aquí en Houston Tx, solo contáctanos', NULL, '<p>Se realizara una Anillo o Dije en plata 925, con piedra de lapislazuli, Turquesa o Malaquita, en este video presento la elaboracion de un &nbsp;Anillo en Banda con Reconstituido, si deseas tomar este curso online o en físico aquí en Houston Tx, solo contactanos</p><p>En este video documente el proceso de lo que seria el curso para elaborar un Anillo en Banda con Reconstituido, si deseas tomar este curso online o en físico aquí en Houston Tx, solo contáctanos</p><p>3 clases de 3 horas cada una<br>9 Horas<br>Material de plata incluido<br>realizaremos una pieza en plata con reconstituido<br>costo: $320</p><p>&nbsp;</p>', NULL, 'anillodeplataconreconstituidoenpiedra', 'anillo-de-plata-con-reconstituido-en-piedra', 1, '2023-08-20 00:21:08300-x-300-jpgjpg.jpg', '8P9z2qzQ50o', 'PUBLISHED', '2023-08-14 00:11:06', '2023-08-20 07:21:36');
 
 -- --------------------------------------------------------
 
@@ -279,13 +291,13 @@ INSERT INTO `cursos` (`id`, `user_id`, `name`, `price`, `description`, `adiciona
 
 CREATE TABLE `dijes` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `model` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `price` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `model` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -307,14 +319,14 @@ INSERT INTO `dijes` (`id`, `title`, `slug`, `model`, `description`, `price`, `im
 
 CREATE TABLE `eventoorlandos` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `firstName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL,
-  `estado` varchar(255) NOT NULL,
-  `pais` varchar(255) NOT NULL,
-  `telefono` varchar(255) DEFAULT NULL,
-  `movil` varchar(255) DEFAULT NULL,
-  `dondeSeEntero` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `firstName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pais` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `movil` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dondeSeEntero` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -336,8 +348,8 @@ INSERT INTO `eventoorlandos` (`id`, `firstName`, `lastName`, `estado`, `pais`, `
 
 CREATE TABLE `expocafs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -363,12 +375,12 @@ INSERT INTO `expocafs` (`id`, `image`, `status`, `created_at`, `updated_at`) VAL
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -379,8 +391,8 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `galleryschools` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -424,11 +436,14 @@ INSERT INTO `galleryschools` (`id`, `title`, `image`, `created_at`, `updated_at`
 
 CREATE TABLE `herramientas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `subtitle` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subtitle` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subtitle_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `description_eng` text COLLATE utf8mb4_unicode_ci,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -437,10 +452,10 @@ CREATE TABLE `herramientas` (
 -- Volcado de datos para la tabla `herramientas`
 --
 
-INSERT INTO `herramientas` (`id`, `title`, `subtitle`, `description`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Kit de Herramientas e Insumos', 'Para Reconstituido', '<ol><li>mortero de metal</li><li>lijas</li><li>crema de pulir</li><li>pinzas</li><li>pega loca</li><li>Malaquita</li><li>coral</li><li>lapislazuli</li><li>turquesa</li></ol>', '2023-08-07 15:56:10herramienta1png.png', 'PUBLISHED', '2023-05-14 21:49:00', '2023-08-07 22:56:14'),
-(2, 'Kit de Herramientas e Insumos', 'Para Metal Clay', '<ol><li>listones plasticos calibrrados para laminar clay.</li><li>exacto</li><li>reglas de medir</li><li>punzon de corte y marcado</li><li>rodillo y otros para lminado y texturas</li><li>aceite desmoldante</li><li>algodon</li><li>cepillo de bronce</li><li>lijas</li><li>papel plastico</li><li>papel encerado</li><li>pinza de cobre</li><li>soplete opciones</li><li>crema de pulir</li><li>pinza doble AA</li><li>set de medidas de anillos</li><li>martillo de plastico</li><li>lastra de madera</li><li>lastra de metal con medidas</li><li>centra punto.</li><li>calentador</li><li>olla electrica</li></ol>', '2023-05-18 02:48:58herramienta2png.png', 'PUBLISHED', '2023-05-14 21:49:01', '2023-05-18 06:49:00'),
-(3, 'Kit de Herramientas e Insumos', 'Para Orfebrería', '<ol><li>Arco de segueta de 120 mm</li><li>Pelos de segueta # 2/0 o 3/0</li><li>Vernier</li><li>Tijera grande</li><li>Soplete</li><li>Pinzas de soldar</li><li>Ladrillo de soldadura</li><li>Lamina de latón</li><li>Aspillero de tornillo</li><li>Pinza de cobre</li><li>Bolsa de arena</li><li>Mordaza de madera</li><li>Lijas</li><li>Martillo de Herrero</li><li>Martillo de plastico</li><li>Matillo de bola</li><li>Tas de martillar</li><li>Motor colgante</li><li>Set de alicates</li><li>Base para motor colgante</li><li>Mechas de taladro</li><li>Lima</li><li>Crema de pulir</li></ol>', '2023-05-18 02:48:28herramienta3png.png', 'PUBLISHED', '2023-05-18 02:44:51', '2023-05-18 06:48:36');
+INSERT INTO `herramientas` (`id`, `title`, `title_eng`, `subtitle`, `subtitle_eng`, `description`, `description_eng`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Kit de Herramientas e Insumos', 'Tools and Supplies Kit', 'Para Reconstituido', 'For Reconstitution', 'mortero de metal\nlijas\ncrema de pulir\npinzas\npega loca\nMalaquita\ncoral\napislazuli\nturquesa', 'Metal mortar and pestle\nSandpaper\nPolishing cream\nTweezers\nSuper glue\nMalachite\nCoral\nLapis Lazuli\nTurquoise', NULL, 'PUBLISHED', '2023-05-14 21:49:00', '2026-03-05 01:57:44'),
+(2, 'Kit de Herramientas e Insumos', 'Tools and Supplies Kit', 'Para Metal Clay', 'For Metal Clay', 'listones plásticos calibrados para laminar clay.\nexacto\nreglas de medir\npunzón de corte y marcado\nrodillo y otros para laminado y texturas\naceite desmoldante\nalgodón\ncepillo de bronce\nlijas\npapel plástico\npapel encerado\npinza de cobre\nsoplete opciones\ncrema de pulir\npinza doble AA\nset de medidas de anillos\nmartillo de plástico\nlastra de madera\nlastra de metal con medidas\ncentra punto.\ncalentador\nolla electrica', 'Calibrated plastic strips for clay rolling\nPrecision craft knife\nMeasuring rulers\nCutting and marking awl\nRolling pin and laminate/texture tools\nMold release\nCotton\nBrass brush\nSandpaper\nPlastic wrap\nWax paper\nCopper tweezers\nTorch options\nPolishing compound\nAA tweezers\nRing sizer set\nPlastic mallet\nWooden ring mandrel\nGraduated metal ring mandrel\nCenter punch\nWarmer\nElectric pot', NULL, 'PUBLISHED', '2023-05-14 21:49:01', '2026-03-05 02:02:13'),
+(3, 'Kit de Herramientas e Insumos', 'Tools and Supplies Kit', 'Para Orfebrería', 'For Goldsmithing', 'Arco de segueta de 120 mm\nPelos de segueta # 2/0 o 3/0\nVernier\nTijera grande\nSoplete\nPinzas de soldar\nLadrillo de soldadura\nLámina de latón\nAstillero de tornillo\nPinza de cobre\nBolsa de arena\nMordaza de madera\nLijas\nMartillo de Herrero\nMartillo de plástico\nMartillo de bola\nTas de martillar\nMotor colgante\nSet de alicates\nBase para motor colgante\nMechas de taladro\nLima\nCrema de pulir', '120 mm Saw frame\nSaw blades # 2/0 or 3/0\nVernier caliper\nLarge shears\nTorch\nSoldering tweezers\nSoldering brick\nBrass sheet\nScrew-on bench pin\nCopper tweezers\nSandbag\nWooden ring clamp\nSandpaper\nBlacksmith hammer\nPlastic mallet\nBall-peen hammer\nBench block\nFlex shaft motor\nPliers set\nFlex shaft motor stand\nDrill bits\nHand file\nPolishing compound', NULL, 'PUBLISHED', '2023-05-18 02:44:51', '2026-03-05 02:06:19');
 
 -- --------------------------------------------------------
 
@@ -450,8 +465,8 @@ INSERT INTO `herramientas` (`id`, `title`, `subtitle`, `description`, `image`, `
 
 CREATE TABLE `jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `queue` varchar(255) NOT NULL,
-  `payload` longtext NOT NULL,
+  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `attempts` tinyint(3) UNSIGNED NOT NULL,
   `reserved_at` int(10) UNSIGNED DEFAULT NULL,
   `available_at` int(10) UNSIGNED NOT NULL,
@@ -466,8 +481,8 @@ CREATE TABLE `jobs` (
 
 CREATE TABLE `joyas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -509,7 +524,7 @@ INSERT INTO `joyas` (`id`, `image`, `status`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -542,7 +557,13 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (22, '2023_05_13_232827_create_herramientas_table', 1),
 (23, '2022_12_09_225551_create_payments_table', 2),
 (24, '2023_05_15_001711_create_subscripciones_table', 3),
-(26, '2023_04_30_145714_create_posts_table', 4);
+(26, '2023_04_30_145714_create_posts_table', 4),
+(27, '2023_05_19_000000_add_english_fields_to_cursos_table', 5),
+(28, '2023_05_19_000001_add_english_fields_to_posts_table', 6),
+(29, '2023_05_19_000002_add_english_field_to_categories_table', 7),
+(30, '2023_05_19_000003_add_english_fields_to_services_table', 8),
+(31, '2023_05_19_000004_add_english_fields_to_herramientas_table', 9),
+(32, '2023_05_19_000005_add_english_fields_to_cronologiacursos_table', 10);
 
 -- --------------------------------------------------------
 
@@ -551,8 +572,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -573,11 +594,11 @@ CREATE TABLE `payments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `curso_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `referencia` varchar(255) NOT NULL,
-  `name` text DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `nombre` varchar(255) DEFAULT NULL,
-  `monto` varchar(255) NOT NULL,
+  `referencia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` text COLLATE utf8mb4_unicode_ci,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `monto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -598,11 +619,11 @@ INSERT INTO `payments` (`id`, `user_id`, `curso_id`, `referencia`, `name`, `emai
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `token` varchar(64) NOT NULL,
-  `abilities` text DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -616,14 +637,16 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `posts` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `slug` varchar(255) NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description_eng` text COLLATE utf8mb4_unicode_ci,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `isFeatured` tinyint(1) NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `category_id` bigint(20) UNSIGNED NOT NULL,
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -632,12 +655,12 @@ CREATE TABLE `posts` (
 -- Volcado de datos para la tabla `posts`
 --
 
-INSERT INTO `posts` (`id`, `title`, `description`, `slug`, `isFeatured`, `image`, `user_id`, `category_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Curso Cadena Parte 1', '<p><span style=\"background-color:rgb(255,255,255);color:rgb(51,51,51);\">Este es el resultado del curso de cadena Cubana y broche de caja, realizado por nuestra colega Orfebre de Venezuela Zury que nos visita y siempre que viene a Houston aprovecha y toma algunos de mis cursos, la pulsera quedo muy bien la hicimos de 8 pulgadas y termino pesando 21.5 grs calculo que hubo una merma de un 10 %</span></p>', 'curso-cadena-parte-1', 1, '2023-05-21 03:30:38blog2png.png', 1, 1, 'PUBLISHED', '2023-05-18 16:43:41', '2023-05-21 10:30:49'),
-(3, '¿Cómo se hace una Cadena Barbada ó Cubana?', '<p>Aprende mas sobre esta técnica en nuestro cursos online, o presenciales</p>', 'como-se-hace-una-cadena-barbada-o-cubana', 1, '2023-05-18 13:05:21blog3png.png', 5, 1, 'PUBLISHED', '2023-05-18 17:05:23', '2023-07-24 02:07:54'),
-(4, 'SOLO PARA NOVIOS...', '<p>Este es un Taller unico!, donde los novios realizan sus Aros Nupciales en un ambiente cargado de Fuego, magia y el compromiso de los futuros esposos, podran realizar los anillos en el material que mas les guste aprenderan todas las tecnicas y pasaran un rato increible</p>', 'Los-novios-realizan-sus-aros-de-boda', 1, '2023-10-20 17:50:33noviospng.png', 1, 2, 'PUBLISHED', '2023-07-24 02:06:38', '2023-10-21 00:50:35'),
-(5, 'EVENTOS ESPECIALES PARA GRUPOS', '<p><strong>GRUPOS DE HASTA 6 PERSONAS</strong></p><p>Hemos creado esta actividad para grupos, si eres el tipo de persona que le gusta realizar eventos con amigos con el fin de compartir te recomendamos estos talleres, tenemos muchas opciones, incluye todo</p>', 'eventos-especiales-para-grupos', 1, '2023-07-23 19:12:16jpg-10-copyjpg.jpg', 1, 2, 'PUBLISHED', '2023-07-24 02:12:19', '2023-10-21 01:03:32'),
-(6, 'Anillo en plata con reconstituido en piedra', '<p>Pueden ver el paso a paso de este anillo en mi canal de youtube aqi les dejo el link&nbsp;</p><figure class=\"media\"><oembed url=\"https://youtu.be/8P9z2qzQ50o\"></oembed></figure>', 'anillo-en-plata-con-reconstituido-en-piedr', 1, '2023-10-20 17:41:01anillocursoblogjpg.jpg', 1, 1, 'PUBLISHED', '2023-08-14 00:40:26', '2023-10-21 00:51:28');
+INSERT INTO `posts` (`id`, `title`, `title_eng`, `description`, `description_eng`, `slug`, `isFeatured`, `image`, `user_id`, `category_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Curso Cadena Parte 1', 'Chain Course Part 1\"', 'Este es el resultado del curso de cadena Cubana y broche de caja, realizado por nuestra colega Orfebre de Venezuela Zury que nos visita y siempre que viene a Houston aprovecha y toma algunos de mis cursos, la pulsera quedo muy bien la hicimos de 8 pulgadas y terminó pesando 21.5 grs calculo que hubo una merma de un 10 %.', 'This is the result of the Cuban Link and box clasp course, made by our fellow goldsmith from Venezuela, Zury. She visits us often and, whenever she comes to Houston, she takes some of my courses. The bracelet turned out great; we made it 8 inches long, and it ended up weighing 21.5 grams. I estimate there was a 10% metal loss.', 'curso-cadena-parte-1', 1, '2023-05-21 03:30:38blog2png.png', 1, 1, 'PUBLISHED', '2023-05-18 16:43:41', '2026-03-05 03:21:57'),
+(3, '¿Cómo se hace una Cadena Barbada ó Cubana?', 'How to make a Curb or Cuban Link Chain?', 'Aprende mas sobre esta técnica en nuestro cursos online, o presenciales', 'Learn more about this technique in our online or in-person courses', 'como-se-hace-una-cadena-barbada-o-cubana', 1, '2023-05-18 13:05:21blog3png.png', 1, 1, 'PUBLISHED', '2023-05-18 17:05:23', '2026-03-05 03:20:13'),
+(4, 'SOLO PARA NOVIOS...', 'FOR COUPLES ONLY', 'Este es un Taller único!, donde los novios realizan sus Aros Nupciales en un ambiente cargado de Fuego, magia y el compromiso de los futuros esposos, podrán realizar los anillos en el material que mas les guste aprenderán todas las técnicas y pasaran un rato increíble', 'This is a one-of-a-kind workshop! Here, couples create their own wedding bands in an atmosphere filled with fire, magic, and the deep commitment of the future spouses. You can craft your rings in the material of your choice while learning all the essential jewelry techniques and enjoying an incredible time together.', 'Los-novios-realizan-sus-aros-de-boda', 1, '2023-10-20 17:50:33noviospng.png', 1, 2, 'PUBLISHED', '2023-07-24 02:06:38', '2026-03-05 03:18:58'),
+(5, 'EVENTOS ESPECIALES PARA GRUPOS', 'SPECIAL EVENTS FOR GROUPS', 'GRUPOS DE HASTA 6 PERSONAS\nHemos creado esta actividad para grupos, si eres el tipo de persona que le gusta realizar eventos con amigos con el fin de compartir te recomendamos estos talleres, tenemos muchas opciones, incluye todo', 'GROUPS OF UP TO 6 PEOPLE\nWe have designed this activity for groups. If you enjoy hosting events with friends to share a creative experience, we highly recommend these workshops. We offer many options, and everything is included.', 'eventos-especiales-para-grupos', 1, '2023-07-23 19:12:16jpg-10-copyjpg.jpg', 1, 1, 'PUBLISHED', '2023-07-24 02:12:19', '2026-03-05 03:15:54'),
+(6, 'Anillo en plata con reconstituido en piedra', 'Silver ring with reconstituted stone', 'Pueden ver el paso a paso de este anillo en mi canal de youtube aqui les dejo el link:  https://youtu.be/8P9z2qzQ50o', 'You can watch the step-by-step process of making this ring on my YouTube channel. Here is the link: https://youtu.be/8P9z2qzQ50o', 'anillo-en-plata-con-reconstituido-en-piedr', 1, '2023-10-20 17:41:01anillocursoblogjpg.jpg', 1, 1, 'PUBLISHED', '2023-08-14 00:40:26', '2026-03-05 03:12:11');
 
 -- --------------------------------------------------------
 
@@ -648,20 +671,20 @@ INSERT INTO `posts` (`id`, `title`, `description`, `slug`, `isFeatured`, `image`
 CREATE TABLE `profiles` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
-  `nombre` varchar(255) NOT NULL,
-  `surname` varchar(255) DEFAULT NULL,
-  `direccion` text DEFAULT NULL,
-  `pais` varchar(255) DEFAULT NULL,
-  `estado` varchar(255) DEFAULT NULL,
-  `ciudad` varchar(255) DEFAULT NULL,
-  `telhome` varchar(255) DEFAULT NULL,
-  `telmovil` varchar(255) DEFAULT NULL,
-  `facebook` varchar(255) DEFAULT NULL,
-  `instagram` varchar(255) DEFAULT NULL,
-  `twitter` varchar(255) DEFAULT NULL,
-  `linkedin` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `status` enum('VERIFIED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `surname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `direccion` text COLLATE utf8mb4_unicode_ci,
+  `pais` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `estado` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ciudad` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `telhome` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `telmovil` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facebook` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `instagram` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `twitter` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `linkedin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('VERIFIED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -681,8 +704,8 @@ INSERT INTO `profiles` (`id`, `user_id`, `nombre`, `surname`, `direccion`, `pais
 
 CREATE TABLE `publicaciones` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -730,13 +753,13 @@ INSERT INTO `publicaciones` (`id`, `image`, `status`, `created_at`, `updated_at`
 
 CREATE TABLE `pulseras` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `slug` varchar(255) DEFAULT NULL,
-  `model` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `price` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `model` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -758,14 +781,17 @@ INSERT INTO `pulseras` (`id`, `title`, `slug`, `model`, `description`, `price`, 
 
 CREATE TABLE `services` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `subtitle` varchar(255) DEFAULT NULL,
-  `model` varchar(255) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `price` varchar(255) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `videoUrl` varchar(255) DEFAULT NULL,
-  `status` enum('PUBLISHED','PENDING','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subtitle` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `subtitle_eng` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `model` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `description_eng` text COLLATE utf8mb4_unicode_ci,
+  `price` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `videoUrl` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('PUBLISHED','PENDING','REJECTED') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -774,8 +800,8 @@ CREATE TABLE `services` (
 -- Volcado de datos para la tabla `services`
 --
 
-INSERT INTO `services` (`id`, `title`, `subtitle`, `model`, `description`, `price`, `image`, `videoUrl`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Reparación de Joyas en Oro y Plata', 'Reparación y Actualización de Diseño de Joyas', NULL, '<p style=\"margin-left:0px;\">Realizamos todo tipo de reparación como:</p><ul><li>Soldadura de cadenas</li><li>Soldadura de post de zarcillo</li><li>Cambio de Broches</li><li>Montura de piedras</li><li>Reparaciones en general en oro y plata</li><li>Cambio de pilas relojes</li><li>Limpieza y mantenimiento de joyas</li><li>Baños de oro</li><li>Encargos</li></ul>', NULL, NULL, 'EPmgpcI0nrA', 'PUBLISHED', '2023-05-14 21:36:16', '2023-05-14 21:41:11');
+INSERT INTO `services` (`id`, `title`, `title_eng`, `subtitle`, `subtitle_eng`, `model`, `description`, `description_eng`, `price`, `image`, `videoUrl`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Reparación de Joyas en Oro y Plata', 'Gold and Silver Jewelry Repair', 'Reparación y Actualización de Diseño de Joyas', 'Jewelry Repair and Design Updates', NULL, 'Realizamos todo tipo de reparación como:\nSoldadura de cadenas\nSoldadura de post de zarcillo\nCambio de Broches\nMontura de piedras\nReparaciones en general en oro y plata\nCambio de pilas relojes\nLimpieza y mantenimiento de joyas\nBaños de oro\nEncargos', 'We perform all types of repairs such as,\nChain soldering\nEarring post soldering\nClasp replacement\nStone setting\nGeneral repairs in gold and silver\nWatch battery replacement\nJewelry cleaning and maintenance\nGold plating\nCustom orders', NULL, NULL, 'EPmgpcI0nrA', 'PUBLISHED', '2023-05-14 21:36:16', '2026-03-05 02:27:54');
 
 -- --------------------------------------------------------
 
@@ -785,7 +811,7 @@ INSERT INTO `services` (`id`, `title`, `subtitle`, `model`, `description`, `pric
 
 CREATE TABLE `subcripcions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -836,13 +862,13 @@ INSERT INTO `subcripcions` (`id`, `email`, `email_verified_at`, `created_at`, `u
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `role` enum('SUPERADMIN','ADMIN','MEMBER','GUEST') NOT NULL DEFAULT 'GUEST',
-  `email` varchar(255) NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('SUPERADMIN','ADMIN','MEMBER','GUEST') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'GUEST',
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -1132,7 +1158,7 @@ ALTER TABLE `joyas`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `payments`
@@ -1186,7 +1212,7 @@ ALTER TABLE `subcripcions`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

@@ -70,6 +70,8 @@ class Post extends Model
         }
         return self::where('title', 'like', "%$query%")
         ->orWhere('description', 'like', "%$query%")
+        ->orWhere('title_eng', 'like', "%$query%")
+        ->orWhere('description_eng', 'like', "%$query%")
         ->get();
     }
 

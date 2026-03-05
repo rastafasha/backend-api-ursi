@@ -41,6 +41,7 @@ class Category extends Model
             return self::all();
         }
         return self::where('name', 'like', "%$query%")
+        ->orWhere('name_eng', 'like', "%$query%")
         ->get();
     }
 

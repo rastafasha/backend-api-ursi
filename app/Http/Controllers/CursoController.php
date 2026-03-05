@@ -88,7 +88,7 @@ class CursoController extends Controller
 
     public function activos()
     {
-        $cursosActivos = Curso::select([
+        $cursos = Curso::select([
             "id",
             'name',
             'name_eng',
@@ -101,14 +101,15 @@ class CursoController extends Controller
         'slug',
         
         ])
-            ->where('status', $status="APPROVED")
+            ->where('status', $status="PUBLISHED")
             ->orderBy('id', 'desc')
+            // ->limit(10)
             ->get();
 
             return response()->json([
                 'code' => 200,
-                'status' => 'Listar cursos destacados',
-                'cursosActivos' => $cursosActivos,
+                'status' => 'Listar cursos activos',
+                'cursos' => $cursos,
             ], 200);
     }
 

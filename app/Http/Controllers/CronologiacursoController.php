@@ -73,12 +73,21 @@ class CronologiacursoController extends Controller
     {
         $cronologiacurso = Cronologiacurso::findOrfail($id);
         $cronologiacurso->modo = $request->modo;
+        $cronologiacurso->modo_eng = $request->modo_eng;
         $cronologiacurso->title = $request->title;
+        $cronologiacurso->title_eng = $request->title_eng;
         $cronologiacurso->description = $request->description;
+        $cronologiacurso->description_eng = $request->description_eng;
         $cronologiacurso->hora = $request->hora;
+        $cronologiacurso->hora_eng = $request->hora_eng;
         $cronologiacurso->clases = $request->clases;
+        $cronologiacurso->clases_eng = $request->clases_eng;
         $cronologiacurso->proyecto = $request->proyecto;
+        $cronologiacurso->proyecto_eng = $request->proyecto_eng;
         $cronologiacurso->duracion = $request->duracion;
+        $cronologiacurso->duracion_eng = $request->duracion_eng;
+        $cronologiacurso->fecha = $request->fecha;
+        $cronologiacurso->fecha_eng = $request->fecha_eng;
         $cronologiacurso->costo = $request->costo;
         // $cronologiacurso->image = $request->image;
         if($request->image){
@@ -198,7 +207,7 @@ class CronologiacursoController extends Controller
          $cronologiacurso->image = '';
          $cronologiacurso->save();
          return response()->json([
-             'data' => $post,
+             'data' => $cronologiacurso,
              'msg' => [
                  'summary' => 'Archivo eliminado',
                  'detail' => '',
@@ -206,6 +215,29 @@ class CronologiacursoController extends Controller
              ]
          ]);
      }
+
+      public function cronologiacursoUpdateStatus(Request $request, $id)
+    {
+        $cronologiacurso = Cronologiacurso::findOrfail($id);
+        $cronologiacurso->status = $request->status;
+        $cronologiacurso->update();
+        return $cronologiacurso;
+    }
+
+
+     public function activos()
+    {
+        $cronologiacursos = Cronologiacurso::where('status', $status="PUBLISHED")
+            ->orderBy('id', 'desc')
+            // ->limit(10)
+            ->get();
+
+            return response()->json([
+                'code' => 200,
+                'status' => 'Listar cursos activos',
+                'cronologiacursos' => $cronologiacursos,
+            ], 200);
+    }
 
      public function search(Request $request){
 

@@ -14,6 +14,9 @@ Route::post('/cronologiacurso/store', [CronologiacursoController::class, 'cronol
 Route::get('/cronologiacurso/show/{cronologiacurso}', [CronologiacursoController::class, 'cronologiacursoShow'])
     ->name('cronologiacurso.show');
 
+ Route::get('/cronologiacurso/activos', [CronologiacursoController::class, 'activos'])
+    ->name('cronologiacurso.activos');
+
 Route::put('/cronologiacurso/update/{cronologiacurso}', [CronologiacursoController::class, 'cronologiacursoUpdate'])
     ->name('cronologiacurso.update');
 
@@ -22,6 +25,9 @@ Route::delete('/cronologiacurso/destroy/{cronologiacurso}', [CronologiacursoCont
 
 Route::post('/cronologiacurso/upload', [CronologiacursoController::class, 'upload'])
     ->name('cronologiacurso.upload');
+
+Route::put('/cronologiacurso/update/status/{cronologiacurso:id}', [CronologiacursoController::class, 'cronologiacursoUpdateStatus'])
+    ->name('cronologiacurso.status');
 
 Route::delete('/cronologiacurso/delete-foto/{id}', [CronologiacursoController::class, 'deleteFotoCronologiacurso'])
     ->name('cronologiacurso.deleteFotoCronologiacurso');
